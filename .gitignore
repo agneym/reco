@@ -116,6 +116,7 @@ tmp/
 temp/
 
 # Snowpack
+lib
 web_modules
 
 ### macOS ###
