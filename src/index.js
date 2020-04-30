@@ -1,6 +1,6 @@
 import './styles.css';
 
-const worker = new Worker("node_modules/ffmpeg.js/ffmpeg-worker-mp4.js");
+const worker = new Worker("ffmpeg-mp4-worker");
 
 worker.onmessage = function(e) {
   const msg = e.data;

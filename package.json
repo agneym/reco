@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "dependencies": {
     "ffmpeg.js": "^4.2.9003",
+    "parcel-plugin-externals": "^0.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "tailwindcss": "^1.4.0"
@@ -53,5 +54,8 @@
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
-  }
+  },
+  "externals": [
+    "ffmpeg-mp4-worker => require('ffmpeg.js/ffmpeg-worker-mp4.js')"
+  ]
 }
