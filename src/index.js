@@ -1,3 +1,15 @@
+import { h, render } from "preact";
+import htm from "htm";
+
+const html = htm.bind(h);
+const appEl = document.getElementById("app");
+
+function SomePreactComponent() {
+  return html`<h1 style="color: red">Hello, World!</h1>`;
+}
+
+render(html`<${SomePreactComponent} />`, appEl);
+
 const worker = new Worker("../node_modules/ffmpeg.js/ffmpeg-worker-mp4.js");
 
 worker.onmessage = function (e) {
