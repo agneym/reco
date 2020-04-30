@@ -31,7 +31,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development npm-run-all css --parallel dev:*",
     "build": "cross-env NODE_ENV=production npm-run-all --parallel css build:*",
-    "css": "tailwindcss build src/styles.css -o lib/output.css",
+    "css": "tailwindcss build src/styles.css -o lib/styles.css",
     "dev:js": "babel src/ --out-dir lib --watch",
     "dev:server": "servor --reload",
     "build:snowpack": "snowpack --optimize --clean",
