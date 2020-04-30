@@ -14,7 +14,7 @@ worker.onmessage = function(e) {
   case "stderr":
     console.log(msg.data);
     break;
-  case "done":
+  case "done": {
     console.log(msg.data);
     const out = msg.data.MEMFS[0];
     if(out) {
@@ -27,6 +27,7 @@ worker.onmessage = function(e) {
       link.click();
     }
     break;
+  }
   case "error": {
     console.log(msg);
     break;

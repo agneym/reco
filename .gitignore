@@ -115,6 +115,9 @@ dist/
 tmp/
 temp/
 
+# Snowpack
+web_modules
+
 ### macOS ###
 # General
 .DS_Store
