@@ -1,3 +1,5 @@
+import './styles.css';
+
 const worker = new Worker("node_modules/ffmpeg.js/ffmpeg-worker-mp4.js");
 
 worker.onmessage = function(e) {
