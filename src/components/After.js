@@ -8,7 +8,16 @@ function After({ recording }) {
   const webmUrl = useMemo(() => {
     return URL.createObjectURL(recording);
   }, [recording]);
-  return html` <video controls autoplay src=${webmUrl} /> `;
+  return html`
+    <div>
+      <video class="max-w-xl" controls autoplay src=${webmUrl} />
+      <a
+        download="screen-recording.mp4"
+        class="shadow rounded-sm px-8 py-2 bg-teal-600 hover:bg-teal-700"
+        >Download MP4</a
+      >
+    </div>
+  `;
 }
 
 export default After;

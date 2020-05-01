@@ -1,5 +1,10 @@
 import { useState } from "preact/hooks";
 
+/**
+ * A recorder custom hook
+ * @param {Object} options
+ * @param {useRecorder~onFinish} options.onFinish callback called when recording completes.
+ */
 function useRecorder({ onFinish }) {
   const [error, setError] = useState(null);
 
@@ -42,5 +47,10 @@ function useRecorder({ onFinish }) {
     start: startRecording,
   };
 }
+
+/**
+ * @callback useRecorder~onFinish
+ * @param {Blob} blob
+ */
 
 export default useRecorder;
