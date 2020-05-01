@@ -1,6 +1,7 @@
 import { html } from "htm/preact";
-import { useMemo, useEffect } from "preact/hooks";
-import { createRef } from "preact";
+import { useMemo, useEffect, useState } from "preact/hooks";
+
+import DownloadBtn from "../Atoms/DownloadBtn.js";
 
 const convertWorker = new Worker(
   "../node_modules/ffmpeg.js/ffmpeg-worker-mp4.js"
@@ -10,22 +11,20 @@ const convertWorker = new Worker(
  * @component Component to be rendered after recording.
  */
 function After({ recording }) {
-  const linkRef = createRef();
-
   const webmUrl = useMemo(() => {
     return URL.createObjectURL(recording);
   }, [recording]);
 
+  const [mp4Url, setMp4Url] = useState(null);
+
   useEffect(() => {
     const setToLink = (blob) => {
-      const linkEl = linkRef.current;
       const url = window.URL.createObjectURL(blob);
-      linkEl.href = url;
+      setMp4Url(url);
     };
     const onFileReady = (message) => {
       const out = message.data.MEMFS[0];
-      const linkEl = linkRef.current;
-      if (out && linkEl) {
+      if (out) {
         const blob = new Blob([out.data], {
           type: "video/mp4",
         });
@@ -68,12 +67,12 @@ function After({ recording }) {
   return html`
     <div>
       <video class="max-w-xl" controls autoplay src=${webmUrl} />
-      <a
-        download="screen-recording.mp4"
-        class="shadow rounded-sm px-8 py-2 bg-teal-600 hover:bg-teal-700"
-        ref=${linkRef}
-        >Download MP4</a
-      >
+      <${DownloadBtn} href=${webmUrl}>
+        Download WebM
+      </${DownloadBtn}>
+      <${DownloadBtn} href=${mp4Url}>
+        Download MP4
+      </${DownloadBtn}>
     </div>
   `;
 }
