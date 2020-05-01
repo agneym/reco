@@ -1,6 +1,6 @@
 import { useState } from "preact/hooks";
 
-function useRecorder() {
+function useRecorder({ onFinish }) {
   const [error, setError] = useState(null);
 
   const startRecording = async () => {
@@ -12,7 +12,7 @@ function useRecorder() {
       stream.getTracks().forEach((track) => track.stop());
       setTimeout(() => {
         const recording = new Blob(chunks, { type: "video/webm" });
-        console.log(recording);
+        onFinish(recording);
       }, 0);
     };
     try {
