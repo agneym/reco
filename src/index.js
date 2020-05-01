@@ -2,11 +2,13 @@ import { render } from "preact";
 import { html } from "htm/preact";
 
 import Intro from "./components/Intro.js";
+import After from "./components/After.js";
 
 function App() {
   return html`
     <main>
       <${Intro} />
+      <${After} />
     </main>
   `;
 }
