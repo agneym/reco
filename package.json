@@ -36,7 +36,8 @@
     "dev:server": "servor --reload",
     "build:snowpack": "snowpack --optimize --clean",
     "build:js": "babel src/ --out-dir lib",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "snowpack"
   },
   "keywords": [],
   "author": "Agney Menon <agney@outlook.in>",
@@ -50,6 +51,14 @@
     "*.js": [
       "eslint --cache --fix",
       "prettier --write"
+    ]
+  },
+  "snowpack": {
+    "webDependencies": [
+      "htm",
+      "preact",
+      "preact/hooks",
+      "htm/preact"
     ]
   }
 }
