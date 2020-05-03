@@ -136,7 +136,7 @@ function useRecorder({ onFinish }) {
       setIsRecording(true);
 
       const stream = await (() => {
-        if (screenStream && cameraStream) {
+        if (screenStream.current && cameraStream.current) {
           return mergeCameraScreen(cameraStream.current, screenStream.current);
         } else {
           return cameraStream.current || screenStream.current;
@@ -149,6 +149,7 @@ function useRecorder({ onFinish }) {
       mediaRecorder.current.start();
     } catch (err) {
       setError(err);
+      console.error(err);
       setIsRecording(false);
     }
   };
