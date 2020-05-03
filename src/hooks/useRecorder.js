@@ -90,6 +90,7 @@ async function mergeCameraScreen(camera, screen) {
  */
 function useRecorder({ onFinish }) {
   const [error, setError] = useState(null);
+  const [isRecording, setIsRecording] = useState(false);
 
   /**
    * Start recording function
@@ -105,12 +106,14 @@ function useRecorder({ onFinish }) {
       });
       const recording = await mediaRecorder.stop();
       onFinish(recording);
+      setIsRecording(false);
     };
     try {
       screenStream =
         constraints.screen && (await captureScreen(constraints.screen));
       cameraStream =
         constraints.camera && (await captureCamera(constraints.camera));
+      setIsRecording(true);
       screenStream.addEventListener("inactive", stopCapture);
       const stream = await (() => {
         if (screenStream && cameraStream) {
@@ -123,11 +126,13 @@ function useRecorder({ onFinish }) {
       mediaRecorder.start();
     } catch (err) {
       setError(err);
+      setIsRecording(false);
     }
   };
   return {
     error,
     start: startRecording,
+    isRecording,
   };
 }
 
