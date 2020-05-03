@@ -15,7 +15,12 @@ async function captureScreen(constraints) {
  * @returns {MediaStream}
  */
 async function captureCamera(constraints) {
-  return await navigator.mediaDevices.getUserMedia(constraints);
+  const stream = await navigator.mediaDevices.getUserMedia(constraints);
+  const videoEl = document.querySelector("#preview-video");
+  if (videoEl) {
+    videoEl.srcObject = stream;
+  }
+  return stream;
 }
 
 /** @class Encapsulating MediaRecorder */
@@ -91,6 +96,7 @@ async function mergeCameraScreen(camera, screen) {
 function useRecorder({ onFinish }) {
   const [error, setError] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
+  const [stream, setStream] = useState(null);
 
   /**
    * Start recording function
@@ -98,11 +104,12 @@ function useRecorder({ onFinish }) {
   const startRecording = async ({ constraints }) => {
     let screenStream;
     let cameraStream;
-    let stream;
     let mediaRecorder;
     const stopCapture = async () => {
       [stream, screenStream, cameraStream].filter(Boolean).forEach((stream) => {
         stream.getTracks().forEach((track) => track.stop());
+        stream.removeEventListener("inactive", stopCapture);
+        stream.removeEventListener("ended", stopCapture);
       });
       const recording = await mediaRecorder.stop();
       onFinish(recording);
@@ -113,8 +120,9 @@ function useRecorder({ onFinish }) {
         constraints.screen && (await captureScreen(constraints.screen));
       cameraStream =
         constraints.camera && (await captureCamera(constraints.camera));
+
       setIsRecording(true);
-      screenStream.addEventListener("inactive", stopCapture);
+
       const stream = await (() => {
         if (screenStream && cameraStream) {
           return mergeCameraScreen(cameraStream, screenStream);
@@ -122,10 +130,16 @@ function useRecorder({ onFinish }) {
           return cameraStream || screenStream;
         }
       })();
+
+      stream.addEventListener("inactive", stopCapture);
+      stream.addEventListener("ended", stopCapture);
+      setStream(stream);
+
       mediaRecorder = new RecordStream(stream);
       mediaRecorder.start();
     } catch (err) {
       setError(err);
+      console.log(err);
       setIsRecording(false);
     }
   };
@@ -133,6 +147,7 @@ function useRecorder({ onFinish }) {
     error,
     start: startRecording,
     isRecording,
+    stream,
   };
 }
 

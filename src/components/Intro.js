@@ -8,7 +8,7 @@ import Preview from "./Preview.js";
  * @component HomePage. All functionalities start here.
  */
 function Intro({ onFinish }) {
-  const { start, isRecording } = useRecorder({ onFinish });
+  const { start, isRecording, stream } = useRecorder({ onFinish });
   const screenConstraints = {
     video: {
       cursor: "always",
@@ -20,7 +20,7 @@ function Intro({ onFinish }) {
     video: true,
   };
   return isRecording
-    ? html` <${Preview} /> `
+    ? html` <${Preview} stream=${stream} /> `
     : html`
     <div>
       <h1 class="text-xl text-center font-medium m-5">Start Recording</h1>
