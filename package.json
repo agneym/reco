@@ -4,15 +4,16 @@
   "description": "",
   "main": "src/index.js",
   "dependencies": {
-    "@babel/cli": "^7.8.4",
     "classnames": "^2.2.6",
     "cross-env": "^7.0.2",
     "ffmpeg.js": "^4.2.9003",
     "htm": "^3.0.4",
     "preact": "^10.4.1",
-    "tailwindcss": "^1.4.0"
+    "tailwindcss": "^1.4.0",
+    "video-stream-merger": "^3.4.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@testing-library/jest-dom": "^5.5.0",
@@ -60,7 +61,8 @@
       "preact",
       "preact/hooks",
       "htm/preact",
-      "classnames"
+      "classnames",
+      "video-stream-merger"
     ]
   }
 }
