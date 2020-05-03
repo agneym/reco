@@ -15,12 +15,7 @@ async function captureScreen(constraints) {
  * @returns {MediaStream}
  */
 async function captureCamera(constraints) {
-  const stream = await navigator.mediaDevices.getUserMedia(constraints);
-  const videoEl = document.querySelector("#preview-video");
-  if (videoEl) {
-    videoEl.srcObject = stream;
-  }
-  return stream;
+  return await navigator.mediaDevices.getUserMedia(constraints);
 }
 
 /** @class Encapsulating MediaRecorder */
