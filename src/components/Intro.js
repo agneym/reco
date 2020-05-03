@@ -23,7 +23,7 @@ function Intro({ onFinish }) {
     ? html` <${Preview} stream=${stream} onStop=${stop} /> `
     : html`
     <div>
-      <h1 class="text-xl text-center font-medium m-5">Start Recording</h1>
+      <h1 class="text-3xl text-center font-medium m-10">Start Recording</h1>
       <${StartBtn} onClick=${() =>
         start({
           constraints: {

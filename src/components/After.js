@@ -19,7 +19,7 @@ function After({ recording, restart }) {
         Download MP4
       </${DownloadBtn}>
       <div class="">
-        <button class="bg-pink-600 m-5 px-8 py-4 text-white hover:bg-pink-700" onClick=${restart}>Restart Recording</button>
+        <button class="bg-pink-600 m-8 px-8 py-4 text-white hover:bg-pink-700" onClick=${restart}>Restart Recording</button>
       </div>
     </div>
   `;
