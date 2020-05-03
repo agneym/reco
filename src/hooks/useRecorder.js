@@ -93,23 +93,25 @@ function useRecorder({ onFinish }) {
   const [isRecording, setIsRecording] = useState(false);
   const [stream, setStream] = useState(null);
 
+  let screenStream;
+  let cameraStream;
+  let mediaRecorder;
+
+  const stopCapture = async () => {
+    [stream, screenStream, cameraStream].filter(Boolean).forEach((stream) => {
+      stream.getTracks().forEach((track) => track.stop());
+      stream.removeEventListener("inactive", stopCapture);
+      stream.removeEventListener("ended", stopCapture);
+    });
+    const recording = await mediaRecorder.stop();
+    onFinish(recording);
+    setIsRecording(false);
+  };
+
   /**
    * Start recording function
    */
   const startRecording = async ({ constraints }) => {
-    let screenStream;
-    let cameraStream;
-    let mediaRecorder;
-    const stopCapture = async () => {
-      [stream, screenStream, cameraStream].filter(Boolean).forEach((stream) => {
-        stream.getTracks().forEach((track) => track.stop());
-        stream.removeEventListener("inactive", stopCapture);
-        stream.removeEventListener("ended", stopCapture);
-      });
-      const recording = await mediaRecorder.stop();
-      onFinish(recording);
-      setIsRecording(false);
-    };
     try {
       screenStream =
         constraints.screen && (await captureScreen(constraints.screen));
@@ -134,7 +136,6 @@ function useRecorder({ onFinish }) {
       mediaRecorder.start();
     } catch (err) {
       setError(err);
-      console.log(err);
       setIsRecording(false);
     }
   };
@@ -143,6 +144,7 @@ function useRecorder({ onFinish }) {
     start: startRecording,
     isRecording,
     stream,
+    stop: stopCapture,
   };
 }
 
