@@ -96,9 +96,15 @@ function useRecorder({ onFinish }) {
   const [stream, setStream] = useState(null);
 
   const mediaRecorder = useRef(null);
+  const cameraStream = useRef(null);
+  const screenStream = useRef(null);
 
   const stopCapture = async () => {
-    stream.getTracks().forEach((track) => track.stop());
+    [stream, cameraStream.current, screenStream.current]
+      .filter(Boolean)
+      .map((stream) => {
+        stream.getTracks().forEach((track) => track.stop());
+      });
     const recording = await mediaRecorder.current.stop();
     onFinish(recording);
     setIsRecording(false);
@@ -122,18 +128,18 @@ function useRecorder({ onFinish }) {
    */
   const startRecording = async ({ constraints }) => {
     try {
-      const screenStream =
+      screenStream.current =
         constraints.screen && (await captureScreen(constraints.screen));
-      const cameraStream =
+      cameraStream.current =
         constraints.camera && (await captureCamera(constraints.camera));
 
       setIsRecording(true);
 
       const stream = await (() => {
         if (screenStream && cameraStream) {
-          return mergeCameraScreen(cameraStream, screenStream);
+          return mergeCameraScreen(cameraStream.current, screenStream.current);
         } else {
-          return cameraStream || screenStream;
+          return cameraStream.current || screenStream.current;
         }
       })();
 
