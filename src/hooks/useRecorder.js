@@ -1,4 +1,4 @@
-import { useState } from "preact/hooks";
+import { useState, useRef, useEffect } from "preact/hooks";
 import VideoStreamMerger from "video-stream-merger";
 
 /**
@@ -50,7 +50,9 @@ function RecordStream(stream) {
   };
 
   this.stop = async () => {
-    this.recorder.stop();
+    if (this.recorder.state != "inactive") {
+      this.recorder.stop();
+    }
     return this.getBlobs();
   };
 }
@@ -93,29 +95,36 @@ function useRecorder({ onFinish }) {
   const [isRecording, setIsRecording] = useState(false);
   const [stream, setStream] = useState(null);
 
-  let screenStream;
-  let cameraStream;
-  let mediaRecorder;
+  const mediaRecorder = useRef(null);
 
   const stopCapture = async () => {
-    [stream, screenStream, cameraStream].filter(Boolean).forEach((stream) => {
-      stream.getTracks().forEach((track) => track.stop());
-      stream.removeEventListener("inactive", stopCapture);
-      stream.removeEventListener("ended", stopCapture);
-    });
-    const recording = await mediaRecorder.stop();
+    stream.getTracks().forEach((track) => track.stop());
+    const recording = await mediaRecorder.current.stop();
     onFinish(recording);
     setIsRecording(false);
   };
+
+  useEffect(() => {
+    if (stream) {
+      stream.addEventListener("inactive", stopCapture);
+      stream.addEventListener("ended", stopCapture);
+    }
+    return () => {
+      if (stream) {
+        stream.removeEventListener("inactive", stopCapture);
+        stream.removeEventListener("ended", stopCapture);
+      }
+    };
+  }, [stream]);
 
   /**
    * Start recording function
    */
   const startRecording = async ({ constraints }) => {
     try {
-      screenStream =
+      const screenStream =
         constraints.screen && (await captureScreen(constraints.screen));
-      cameraStream =
+      const cameraStream =
         constraints.camera && (await captureCamera(constraints.camera));
 
       setIsRecording(true);
@@ -128,12 +137,10 @@ function useRecorder({ onFinish }) {
         }
       })();
 
-      stream.addEventListener("inactive", stopCapture);
-      stream.addEventListener("ended", stopCapture);
       setStream(stream);
 
-      mediaRecorder = new RecordStream(stream);
-      mediaRecorder.start();
+      mediaRecorder.current = new RecordStream(stream);
+      mediaRecorder.current.start();
     } catch (err) {
       setError(err);
       setIsRecording(false);
