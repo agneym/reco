@@ -6,7 +6,7 @@ import useConverter from "../hooks/useConverter.js";
 /**
  * @component Component to be rendered after recording.
  */
-function After({ recording }) {
+function After({ recording, restart }) {
   const { webmUrl, mp4Url } = useConverter(recording);
 
   return html`
@@ -18,6 +18,9 @@ function After({ recording }) {
       <${DownloadBtn} href=${mp4Url}>
         Download MP4
       </${DownloadBtn}>
+      <div class="">
+        <button class="bg-pink-600 m-5 px-8 py-4 text-white hover:bg-pink-700" onClick=${restart}>Restart Recording</button>
+      </div>
     </div>
   `;
 }

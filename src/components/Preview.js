@@ -14,9 +14,13 @@ function Preview({ stream, onStop }) {
           autoplay
           id="preview-video"
           srcObject=${stream}
+          class="max-w-xl"
         ></video>
       `}
-      <button class="bg-pink-600 m-5 px-8 py-4 text-white" onClick=${onStop}>
+      <button
+        class="bg-pink-600 m-5 px-8 py-4 text-white hover:bg-pink-700"
+        onClick=${onStop}
+      >
         Stop Recording
       </button>
     </div>
