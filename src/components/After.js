@@ -10,8 +10,8 @@ function After({ recording }) {
   const { webmUrl, mp4Url } = useConverter(recording);
 
   return html`
-    <div>
-      <video class="max-w-xl" controls autoplay src=${webmUrl} />
+    <div class="text-center">
+      <video class="max-w-xl m-6" controls autoplay src=${webmUrl} />
       <${DownloadBtn} href=${webmUrl}>
         Download WebM
       </${DownloadBtn}>

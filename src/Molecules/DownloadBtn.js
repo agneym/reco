@@ -7,7 +7,7 @@ function DownloadBtn({ href, children }) {
       href=${href}
       download="screen-recording.mp4"
       class=${classnames(
-        "shadow rounded-sm px-8 py-2 bg-teal-600 hover:bg-teal-700 text-white",
+        "shadow rounded-sm m-5 px-8 py-4 bg-teal-600 hover:bg-teal-700 text-white text-center",
         {
           "bg-opacity-25": !href,
         }
