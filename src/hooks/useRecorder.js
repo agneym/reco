@@ -3,31 +3,29 @@ import VideoStreamMerger from "video-stream-merger";
 
 /**
  * Record screen to capture output.
+ * @param {Object} constraints Constraint for display media
  * @returns {MediaStream}
  */
-async function captureScreen() {
-  return await navigator.mediaDevices.getDisplayMedia({
-    video: {
-      cursor: "always",
-    },
-    audio: false,
-  });
+async function captureScreen(constraints) {
+  return await navigator.mediaDevices.getDisplayMedia(constraints);
 }
 
 /**
  * Record camera to capture webcam output.
  * @returns {MediaStream}
  */
-async function captureCamera() {
-  return await navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true,
-  });
+async function captureCamera(constraints) {
+  return await navigator.mediaDevices.getUserMedia(constraints);
 }
 
 /** @class Encapsulating MediaRecorder */
 function RecordStream(stream) {
-  /** @member {MediaRecorder} recorder - MediaRecorder object */
+  /**
+   * MediaRecorder object
+   * @member {MediaRecorder}
+   * @memberof {RecordStream}
+   * @instance
+   */
   this.recorder = new MediaRecorder(stream, {
     mimeType: "video/webm",
   });
@@ -93,23 +91,34 @@ async function mergeCameraScreen(camera, screen) {
 function useRecorder({ onFinish }) {
   const [error, setError] = useState(null);
 
-  const startRecording = async () => {
-    let screen;
-    let camera;
+  /**
+   * Start recording function
+   */
+  const startRecording = async ({ constraints }) => {
+    let screenStream;
+    let cameraStream;
     let stream;
     let mediaRecorder;
     const stopCapture = async () => {
-      [stream, screen, camera].forEach((stream) => {
+      [stream, screenStream, cameraStream].filter(Boolean).forEach((stream) => {
         stream.getTracks().forEach((track) => track.stop());
       });
       const recording = await mediaRecorder.stop();
       onFinish(recording);
     };
     try {
-      screen = await captureScreen();
-      camera = await captureCamera();
-      screen.addEventListener("inactive", stopCapture);
-      stream = await mergeCameraScreen(camera, screen);
+      screenStream =
+        constraints.screen && (await captureScreen(constraints.screen));
+      cameraStream =
+        constraints.camera && (await captureCamera(constraints.camera));
+      screenStream.addEventListener("inactive", stopCapture);
+      const stream = await (() => {
+        if (screenStream && cameraStream) {
+          return mergeCameraScreen(cameraStream, screenStream);
+        } else {
+          return cameraStream || screenStream;
+        }
+      })();
       mediaRecorder = new RecordStream(stream);
       mediaRecorder.start();
     } catch (err) {
