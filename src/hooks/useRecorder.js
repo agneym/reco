@@ -25,16 +25,36 @@ async function captureCamera() {
   });
 }
 
-/**
- * Initialise Media recorder and start recording a stream.
- * @param {MediaStream} stream
- */
-async function recordStream(stream) {
-  const recorder = new MediaRecorder(stream, {
+/** @class Encapsulating MediaRecorder */
+function RecordStream(stream) {
+  /** @member {MediaRecorder} recorder - MediaRecorder object */
+  this.recorder = new MediaRecorder(stream, {
     mimeType: "video/webm",
   });
-  recorder.start();
-  return recorder;
+  this.chunks = [];
+
+  this.start = () => {
+    this.recorder.start();
+    this.recorder.addEventListener("dataavailable", (event) => {
+      const data = event.data;
+      if (data && data.size > 0) {
+        this.chunks.push(data);
+      }
+    });
+  };
+
+  this.getBlobs = async () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(new Blob(this.chunks, { type: "video/webm" }));
+      }, 0);
+    });
+  };
+
+  this.stop = async () => {
+    this.recorder.stop();
+    return this.getBlobs();
+  };
 }
 
 /**
@@ -77,30 +97,21 @@ function useRecorder({ onFinish }) {
     let screen;
     let camera;
     let stream;
-    let chunks = [];
     let mediaRecorder;
     const stopCapture = async () => {
-      mediaRecorder.stop();
       [stream, screen, camera].forEach((stream) => {
         stream.getTracks().forEach((track) => track.stop());
       });
-      setTimeout(() => {
-        const recording = new Blob(chunks, { type: "video/webm" });
-        onFinish(recording);
-      }, 0);
+      const recording = await mediaRecorder.stop();
+      onFinish(recording);
     };
     try {
       screen = await captureScreen();
       camera = await captureCamera();
       screen.addEventListener("inactive", stopCapture);
       stream = await mergeCameraScreen(camera, screen);
-      mediaRecorder = await recordStream(stream);
-      mediaRecorder.addEventListener("dataavailable", (event) => {
-        const data = event.data;
-        if (data && data.size > 0) {
-          chunks.push(data);
-        }
-      });
+      mediaRecorder = new RecordStream(stream);
+      mediaRecorder.start();
     } catch (err) {
       setError(err);
     }
