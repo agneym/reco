@@ -1,50 +1,27 @@
 import { html } from "htm/preact";
 
 import useRecorder from "../hooks/useRecorder.js";
-import StartBtn from "../Molecules/StartBtn.js";
 import Preview from "./Preview.js";
+import MainOptions from "../Molecules/MainOptions";
 
 /**
  * @component HomePage. All functionalities start here.
  */
 function Intro({ onFinish }) {
   const { start, isRecording, stream, stop } = useRecorder({ onFinish });
-  const screenConstraints = {
-    video: {
-      cursor: "always",
-    },
-    audio: false,
-  };
-  const cameraConstraints = {
-    audio: true,
-    video: true,
-  };
+
   return isRecording
     ? html` <${Preview} stream=${stream} onStop=${stop} /> `
     : html`
-    <div>
-      <h1 class="text-2xl uppercase tracking-wide text-center font-normal m-6">Start Recording</h1>
-      <${StartBtn} onClick=${() =>
-        start({
-          constraints: {
-            screen: screenConstraints,
-          },
-        })}>Screen</${StartBtn}>
-      <${StartBtn} onClick=${() =>
-        start({
-          constraints: {
-            camera: cameraConstraints,
-          },
-        })}>Camera</${StartBtn}>
-      <${StartBtn} onClick=${() =>
-        start({
-          constraints: {
-            screen: screenConstraints,
-            camera: cameraConstraints,
-          },
-        })}>Screen + Cam</${StartBtn}>
-    </div>
-  `;
+        <div>
+          <h1
+            class="text-2xl uppercase tracking-wide text-center font-normal m-6"
+          >
+            Start Recording
+          </h1>
+          <${MainOptions} start=${start} />
+        </div>
+      `;
 }
 
 export default Intro;
