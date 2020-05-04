@@ -19,7 +19,12 @@ function Intro({ onFinish }) {
         <div>
           ${!primary
             ? html` <${MainOptions} setPrimary=${setPrimary} /> `
-            : html` <${SecondaryOptions} primary=${primary} /> `}
+            : html`
+                <${SecondaryOptions}
+                  primary=${primary}
+                  reset=${() => setPrimary(null)}
+                />
+              `}
         </div>
       `;
 }
