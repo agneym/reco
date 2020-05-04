@@ -1,8 +1,9 @@
-import { html, useState } from "htm/preact";
+import { html } from "htm/preact";
+import { useState } from "preact/hooks";
 
 import useRecorder from "../hooks/useRecorder.js";
 import Preview from "./Preview.js";
-import MainOptions from "../Molecules/MainOptions";
+import MainOptions from "../Molecules/MainOptions.js";
 import SecondaryOptions from "../Molecules/SecondaryOptions.js";
 
 /**
@@ -16,11 +17,6 @@ function Intro({ onFinish }) {
     ? html` <${Preview} stream=${stream} onStop=${stop} /> `
     : html`
         <div>
-          <h1
-            class="text-2xl uppercase tracking-wide text-center font-normal m-6"
-          >
-            Start Recording
-          </h1>
           ${!primary
             ? html` <${MainOptions} setPrimary=${setPrimary} /> `
             : html` <${SecondaryOptions} primary=${primary} /> `}
