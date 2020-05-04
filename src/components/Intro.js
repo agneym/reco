@@ -1,14 +1,16 @@
-import { html } from "htm/preact";
+import { html, useState } from "htm/preact";
 
 import useRecorder from "../hooks/useRecorder.js";
 import Preview from "./Preview.js";
 import MainOptions from "../Molecules/MainOptions";
+import SecondaryOptions from "../Molecules/SecondaryOptions.js";
 
 /**
  * @component HomePage. All functionalities start here.
  */
 function Intro({ onFinish }) {
-  const { start, isRecording, stream, stop } = useRecorder({ onFinish });
+  const { isRecording, stream, stop } = useRecorder({ onFinish });
+  const [primary, setPrimary] = useState(null);
 
   return isRecording
     ? html` <${Preview} stream=${stream} onStop=${stop} /> `
@@ -19,7 +21,9 @@ function Intro({ onFinish }) {
           >
             Start Recording
           </h1>
-          <${MainOptions} start=${start} />
+          ${!primary
+            ? html` <${MainOptions} setPrimary=${setPrimary} /> `
+            : html` <${SecondaryOptions} primary=${primary} /> `}
         </div>
       `;
 }
