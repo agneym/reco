@@ -2,9 +2,10 @@ import { html } from "htm/preact";
 import { useState } from "preact/hooks";
 
 import Checkbox from "../Atoms/Checkbox.js";
+import RadioButton from "../Atoms/RadioButton.js";
 
 function SecondaryOptions({ primary, reset }) {
-  const [audio, setAudio] = useState(false);
+  const [audio, setAudio] = useState(true);
   return html`
     <h1 class="text-2xl tracking-wide text-center font-normal m-4">
       You have choosen to record ${primary.toUpperCase()}
@@ -18,6 +19,9 @@ function SecondaryOptions({ primary, reset }) {
         checked=${audio}
         onChange=${(event) => setAudio(event.target.checked)}
       />
+    </div>
+    <div class="mt-4">
+      <${RadioButton} label="" />
     </div>
   `;
 }
