@@ -116,7 +116,7 @@ tmp/
 temp/
 
 # Snowpack
-lib
+__dist__
 web_modules
 
 ### macOS ###

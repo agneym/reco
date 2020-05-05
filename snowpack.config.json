@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "build:js": "babel --no-babelrc",
+    "build:css": "postcss"
+  },
+  "knownEntrypoints": [
+    "htm",
+    "preact",
+    "preact/hooks",
+    "htm/preact",
+    "classnames",
+    "video-stream-merger"
+  ]
+}

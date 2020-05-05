@@ -8,8 +8,5 @@
         "modules": false
       }
     ]
-  ],
-  "plugins": [
-    "snowpack/assets/babel-plugin.js"
   ]
 }

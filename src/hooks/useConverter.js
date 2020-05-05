@@ -1,8 +1,6 @@
 import { useMemo, useEffect, useState } from "preact/hooks";
 
-const convertWorker = new Worker(
-  "../node_modules/ffmpeg.js/ffmpeg-worker-mp4.js"
-);
+const convertWorker = new Worker("ffmpeg-worker-mp4.js");
 
 /**
  * Convert recording into different formats.

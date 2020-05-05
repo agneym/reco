@@ -17,6 +17,7 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
+    "@snowpack/babel-plugin-package-import": "^0.2.4",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/preact": "^1.0.2",
     "autoprefixer": "^9.7.6",
@@ -27,20 +28,15 @@
     "jest": "^25.5.2",
     "lint-staged": "^10.2.0",
     "npm-run-all": "^4.1.5",
+    "postcss-cli": "^7.1.1",
     "prettier": "^2.0.5",
-    "servor": "^3.2.0",
-    "snowpack": "^1.7.1"
+    "snowpack": "^2.0.0-beta.5"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development npm-run-all css --parallel dev:*",
-    "build": "cross-env NODE_ENV=production npm-run-all --parallel css build:*",
-    "css": "tailwindcss build src/styles.css -o lib/styles.css",
-    "dev:js": "babel src/ --out-dir lib --watch",
-    "dev:server": "servor --reload",
-    "build:snowpack": "snowpack --optimize --clean",
-    "build:js": "babel src/ --out-dir lib",
-    "test": "jest",
-    "prepare": "snowpack"
+    "prepare": "snowpack",
+    "start": "snowpack dev",
+    "build": "snowpack build --bundle",
+    "test": "jest"
   },
   "keywords": [],
   "author": "Agney Menon <agney@outlook.in>",
@@ -54,16 +50,6 @@
     "*.js": [
       "eslint --cache --fix",
       "prettier --write"
-    ]
-  },
-  "snowpack": {
-    "webDependencies": [
-      "htm",
-      "preact",
-      "preact/hooks",
-      "htm/preact",
-      "classnames",
-      "video-stream-merger"
     ]
   }
 }
