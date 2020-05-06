@@ -24,8 +24,18 @@ function SecondaryOptions({ primary, start, reset }) {
   const [audio, setAudio] = useState(true);
   const [cursor, setCursor] = useState("always");
 
+  const handleStart = () => {
+    const constraints = {
+      audio,
+      video: {
+        cursor,
+      },
+    };
+    start(constraints);
+  };
+
   return html`
-    <h1 class="text-2xl tracking-wide text-center font-normal m-4">
+    <h1 class="text-xl text-gray-700 tracking-wide text-center font-normal my-4">
       You have choosen to record ${primary.toUpperCase()}
     </h1>
     <button class="block mx-auto underline" onClick=${reset}>Choose Another</button>
@@ -53,7 +63,7 @@ function SecondaryOptions({ primary, start, reset }) {
           </div>
         `
       }
-      <${StartBtn} onClick=${start}>Start Recording</${StartBtn}>
+      <${StartBtn} onClick=${handleStart}>Start Recording</${StartBtn}>
     </div>
   `;
 }
