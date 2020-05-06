@@ -14,10 +14,12 @@ const cursorValues = [{
 }, {
   label: "Never",
   value: "never",
-}]
+}];
 
 function SecondaryOptions({ primary, start, reset }) {
   const [audio, setAudio] = useState(true);
+  const [cursor, setCursor] = useState('always');
+
   return html`
     <h1 class="text-2xl tracking-wide text-center font-normal m-4">
       You have choosen to record ${primary.toUpperCase()}
@@ -35,7 +37,13 @@ function SecondaryOptions({ primary, start, reset }) {
       </div>
       ${primary.includes('screen') && html`
         <div class="mt-6">
-          <${RadioButtonGroup} label="Do you want to record cursor?" values=${cursorValues} name="cursor" />
+          <${RadioButtonGroup}
+            label="Do you want to record cursor?"
+            values=${cursorValues}
+            name="cursor"
+            selected=${cursor}
+            onChange=${(event) => setCursor(event.target.value)}
+          />
         </div>
       `}
       <${StartBtn} onClick=${start}>Start Recording</${StartBtn}>
