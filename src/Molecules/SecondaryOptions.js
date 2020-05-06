@@ -20,7 +20,7 @@ const cursorValues = [
   },
 ];
 
-function SecondaryOptions({ primary, start, reset }) {
+function SecondaryOptions({ primary, onStart, reset }) {
   const [audio, setAudio] = useState(true);
   const [cursor, setCursor] = useState("always");
 
@@ -31,7 +31,7 @@ function SecondaryOptions({ primary, start, reset }) {
         cursor,
       },
     };
-    start(constraints);
+    onStart(constraints);
   };
 
   return html`

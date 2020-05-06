@@ -126,12 +126,10 @@ function useRecorder({ onFinish }) {
   /**
    * Start recording function
    */
-  const startRecording = async ({ constraints }) => {
+  const startRecording = async ({ type, constraints }) => {
     try {
-      screenStream.current =
-        constraints.screen && (await captureScreen(constraints.screen));
-      cameraStream.current =
-        constraints.camera && (await captureCamera(constraints.camera));
+      screenStream.current = type.screen && (await captureScreen(constraints));
+      cameraStream.current = type.camera && (await captureCamera(constraints));
 
       setIsRecording(true);
 

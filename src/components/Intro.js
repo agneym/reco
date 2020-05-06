@@ -13,6 +13,19 @@ function Intro({ onFinish }) {
   const { start, isRecording, stream, stop } = useRecorder({ onFinish });
   const [primary, setPrimary] = useState(null);
 
+  const handleStart = (constraints) => {
+    const type = {
+      screen: true,
+      camera: true,
+    };
+    if (primary === "screen") {
+      type.camera = false;
+    } else if (primary === "camera") {
+      type.screen = true;
+    }
+    start({ type, constraints });
+  };
+
   return isRecording
     ? html` <${Preview} stream=${stream} onStop=${stop} /> `
     : html`
@@ -22,7 +35,7 @@ function Intro({ onFinish }) {
             : html`
                 <${SecondaryOptions}
                   primary=${primary}
-                  start=${start}
+                  onStart=${handleStart}
                   reset=${() => setPrimary(null)}
                 />
               `}
