@@ -5,20 +5,24 @@ import Checkbox from "../Atoms/Checkbox.js";
 import RadioButtonGroup from "../Atoms/RadioButtonGroup.js";
 import StartBtn from "./StartBtn.js";
 
-const cursorValues = [{
-  label: "Always",
-  value: "always",
-}, {
-  label: "Moving",
-  value: "moving",
-}, {
-  label: "Never",
-  value: "never",
-}];
+const cursorValues = [
+  {
+    label: "Always",
+    value: "always",
+  },
+  {
+    label: "Moving",
+    value: "moving",
+  },
+  {
+    label: "Never",
+    value: "never",
+  },
+];
 
 function SecondaryOptions({ primary, start, reset }) {
   const [audio, setAudio] = useState(true);
-  const [cursor, setCursor] = useState('always');
+  const [cursor, setCursor] = useState("always");
 
   return html`
     <h1 class="text-2xl tracking-wide text-center font-normal m-4">
@@ -35,17 +39,20 @@ function SecondaryOptions({ primary, start, reset }) {
           onChange=${(event) => setAudio(event.target.checked)}
         />
       </div>
-      ${primary.includes('screen') && html`
-        <div class="mt-6">
-          <${RadioButtonGroup}
-            label="Do you want to record cursor?"
-            values=${cursorValues}
-            name="cursor"
-            selected=${cursor}
-            onChange=${(event) => setCursor(event.target.value)}
-          />
-        </div>
-      `}
+      ${
+        primary.includes("screen") &&
+        html`
+          <div class="mt-6">
+            <${RadioButtonGroup}
+              label="Do you want to record cursor?"
+              values=${cursorValues}
+              name="cursor"
+              selected=${cursor}
+              onChange=${(event) => setCursor(event.target.value)}
+            />
+          </div>
+        `
+      }
       <${StartBtn} onClick=${start}>Start Recording</${StartBtn}>
     </div>
   `;
