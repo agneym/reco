@@ -10,7 +10,7 @@ import SecondaryOptions from "../Molecules/SecondaryOptions.js";
  * @component HomePage. All functionalities start here.
  */
 function Intro({ onFinish }) {
-  const { isRecording, stream, stop } = useRecorder({ onFinish });
+  const { start, isRecording, stream, stop } = useRecorder({ onFinish });
   const [primary, setPrimary] = useState(null);
 
   return isRecording
@@ -22,6 +22,7 @@ function Intro({ onFinish }) {
             : html`
                 <${SecondaryOptions}
                   primary=${primary}
+                  start=${start}
                   reset=${() => setPrimary(null)}
                 />
               `}
