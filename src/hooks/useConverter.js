@@ -7,31 +7,25 @@ const convertWorker = new Worker("ffmpeg-worker-mp4.js");
  * @param {Blob} recording Recording to be converted
  */
 function useConverter(recording) {
-  const webmUrl = useMemo(() => {
-    return URL.createObjectURL(recording);
-  }, [recording]);
+  const [mp4Blob, setMp4Blob] = useState(null);
 
-  const [mp4Url, setMp4Url] = useState(null);
+  const onFileReady = (message) => {
+    const out = message.data.MEMFS[0];
+    if (out) {
+      const blob = new Blob([out.data], {
+        type: "video/mp4",
+      });
+      setMp4Blob(blob);
+    }
+  };
 
   useEffect(() => {
-    const setToLink = (blob) => {
-      const url = window.URL.createObjectURL(blob);
-      setMp4Url(url);
-    };
-    const onFileReady = (message) => {
-      const out = message.data.MEMFS[0];
-      if (out) {
-        const blob = new Blob([out.data], {
-          type: "video/mp4",
-        });
-        setToLink(blob);
-      }
-    };
     const handleMessage = (e) => {
       const message = e.data;
       switch (message.type) {
         case "done": {
           onFileReady(message);
+          convertWorker.removeEventListener("message", handleMessage);
           break;
         }
       }
@@ -41,14 +35,9 @@ function useConverter(recording) {
       convertWorker.postMessage({
         type: "run",
         MEMFS: [{ name: "test.webm", data: buffer }],
-        arguments: [
-          "-y",
-          "-i",
-          "test.webm",
-          "-c:v",
-          "copy",
-          "screen-recording.mp4",
-        ],
+        arguments: "-ss 00:00:01 -y -i test.webm -c:v copy screen-recording.mp4".split(
+          " "
+        ),
       });
     };
 
@@ -60,9 +49,42 @@ function useConverter(recording) {
     };
   }, [recording]);
 
+  const mp4Url = useMemo(() => {
+    if (mp4Blob) {
+      return window.URL.createObjectURL(mp4Blob);
+    }
+    return null;
+  }, [mp4Blob]);
+
+  const trimVideo = () => {
+    const handleMessage = (e) => {
+      const message = e.data;
+      console.log(message);
+      switch (message.type) {
+        case "done": {
+          onFileReady(message);
+          convertWorker.removeEventListener("message", handleMessage);
+          break;
+        }
+      }
+    };
+    const trim = async () => {
+      const buffer = await recording.arrayBuffer();
+      convertWorker.postMessage({
+        type: "run",
+        MEMFS: [{ name: "test.mp4", data: buffer }],
+        arguments: "-ss 00:00:01 -i test.mp4 -t 00:00:03 -c:v copy -c:a copy -strict -2 screen-reco.mp4".split(
+          " "
+        ),
+      });
+    };
+    trim();
+    convertWorker.addEventListener("message", handleMessage);
+  };
+
   return {
     mp4Url,
-    webmUrl,
+    trimVideo,
   };
 }
 

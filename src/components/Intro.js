@@ -21,7 +21,7 @@ function Intro({ onFinish }) {
     if (primary === "screen") {
       type.camera = false;
     } else if (primary === "camera") {
-      type.screen = true;
+      type.screen = false;
     }
     start({ type, constraints });
   };
