@@ -59,7 +59,6 @@ function useConverter(recording) {
   const trimVideo = () => {
     const handleMessage = (e) => {
       const message = e.data;
-      console.log(message);
       switch (message.type) {
         case "done": {
           onFileReady(message);
@@ -73,7 +72,7 @@ function useConverter(recording) {
       convertWorker.postMessage({
         type: "run",
         MEMFS: [{ name: "test.mp4", data: buffer }],
-        arguments: "-ss 00:00:01 -i test.mp4 -t 00:00:03 -c:v copy -c:a copy -strict -2 screen-reco.mp4".split(
+        arguments: "-i test.mp4 -ss 00:00:04 -c:v copy -to 00:00:10 screen-reco.mp4".split(
           " "
         ),
       });
