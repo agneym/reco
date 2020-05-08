@@ -26,21 +26,25 @@ function Intro({ onFinish }) {
     start({ type, constraints });
   };
 
-  return isRecording
-    ? html` <${Preview} stream=${stream} onStop=${stop} /> `
-    : html`
-        <div>
-          ${!primary
-            ? html` <${MainOptions} setPrimary=${setPrimary} /> `
-            : html`
-                <${SecondaryOptions}
-                  primary=${primary}
-                  onStart=${handleStart}
-                  reset=${() => setPrimary(null)}
-                />
-              `}
-        </div>
-      `;
+  return html`
+    <div>
+      ${isRecording
+        ? html` <${Preview} stream=${stream} onStop=${stop} /> `
+        : html`
+            <div>
+              ${!primary
+                ? html` <${MainOptions} setPrimary=${setPrimary} /> `
+                : html`
+                    <${SecondaryOptions}
+                      primary=${primary}
+                      onStart=${handleStart}
+                      reset=${() => setPrimary(null)}
+                    />
+                  `}
+            </div>
+          `}
+    </div>
+  `;
 }
 
 export default Intro;

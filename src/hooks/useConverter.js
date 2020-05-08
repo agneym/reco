@@ -72,7 +72,7 @@ function useConverter(recording) {
       convertWorker.postMessage({
         type: "run",
         MEMFS: [{ name: "test.mp4", data: buffer }],
-        arguments: "-i test.mp4 -ss 00:00:04 -c:v copy -to 00:00:10 screen-reco.mp4".split(
+        arguments: "-ss 00:00:04 -i test.mp4 -c:v copy -to 00:00:10 screen-reco.mp4".split(
           " "
         ),
       });
