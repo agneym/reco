@@ -28,6 +28,9 @@ function Intro({ onFinish }) {
 
   return html`
     <div>
+      <header class="mb-8">
+        <img src="/name.svg" alt="logo" />
+      </header>
       ${isRecording
         ? html` <${Preview} stream=${stream} onStop=${stop} /> `
         : html`
