@@ -28,8 +28,8 @@ function Intro({ onFinish }) {
 
   return html`
     <div>
-      <header class="mb-8">
-        <img src="/name.svg" alt="logo" />
+      <header class="mb-24">
+        <img src="/name.svg" alt="logo" width="280" class="d-block m-auto" />
       </header>
       ${isRecording
         ? html` <${Preview} stream=${stream} onStop=${stop} /> `

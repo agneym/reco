@@ -14,7 +14,7 @@ function App() {
     setRecording(blob);
   };
   return html`
-    <main class="flex justify-center items-center min-h-screen">
+    <main class="grid justify-center items-center min-h-screen">
       ${!recording
         ? html`<${Intro} onFinish=${completeRecording} />`
         : html`<${After} restart=${restart} recording=${recording} />`}
