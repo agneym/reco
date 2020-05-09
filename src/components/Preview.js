@@ -4,7 +4,7 @@ function Preview({ stream, onStop }) {
   return html`
     <div class="text-center">
       <h1 class="text-xl font-medium m-5">
-        Recoding in Progress ...
+        Recording in Progress ...
       </h1>
       ${stream &&
       html`

@@ -61,8 +61,9 @@ function RecordStream(stream) {
  * Merge streams together and return result
  * @param {MediaStream} camera camera stream
  * @param {MediaStream} screen screen stream
+ * @param {MediaStreamConstraints} constraints placed on the stream
  */
-async function mergeCameraScreen(camera, screen) {
+async function mergeCameraScreen(camera, screen, constraints) {
   const merger = VideoStreamMerger({
     width: window.screen.width,
     height: window.screen.height,
@@ -79,7 +80,7 @@ async function mergeCameraScreen(camera, screen) {
     y: merger.height - 240,
     width: 320,
     height: 240,
-    mute: false,
+    mute: constraints.audio,
   });
   merger.start();
   return merger.result;
@@ -100,11 +101,14 @@ function useRecorder({ onFinish }) {
   const screenStream = useRef(null);
 
   const stopCapture = async () => {
-    [stream, cameraStream.current, screenStream.current]
+    [cameraStream.current, screenStream.current, stream]
       .filter(Boolean)
       .map((stream) => {
         stream.getTracks().forEach((track) => track.stop());
+        stream.removeEventListener("inactive", stopCapture);
+        stream.removeEventListener("ended", stopCapture);
       });
+    setStream(null);
     const recording = await mediaRecorder.current.stop();
     onFinish(recording);
     setIsRecording(false);
@@ -112,11 +116,16 @@ function useRecorder({ onFinish }) {
 
   useEffect(() => {
     if (stream) {
+      /* When sharing a screen, users get an exclusive stop sharing screen button and get to use it instead of the one provided on our interface. */
+      screenStream.current &&
+        screenStream.current.addEventListener("inactive", stopCapture);
       stream.addEventListener("inactive", stopCapture);
       stream.addEventListener("ended", stopCapture);
     }
     return () => {
       if (stream) {
+        screenStream.current &&
+          screenStream.current.removeEventListener("inactive", stopCapture);
         stream.removeEventListener("inactive", stopCapture);
         stream.removeEventListener("ended", stopCapture);
       }
@@ -135,7 +144,11 @@ function useRecorder({ onFinish }) {
 
       const stream = await (() => {
         if (screenStream.current && cameraStream.current) {
-          return mergeCameraScreen(cameraStream.current, screenStream.current);
+          return mergeCameraScreen(
+            cameraStream.current,
+            screenStream.current,
+            constraints
+          );
         } else {
           return cameraStream.current || screenStream.current;
         }
