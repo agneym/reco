@@ -9,17 +9,14 @@ function MainOptions({ setPrimary }) {
   >
     Choose an option to start recording
   </h1>
-  <${StartBtn} onClick=${() => setPrimary("screen")}>
-    <img src='/podcast.svg' alt='' />
-    <p>Screen</p>
+  <${StartBtn} onClick=${() => setPrimary("screen")} imgUrl='/podcast.svg'>
+    Screen
   </${StartBtn}>
-  <${StartBtn} onClick=${() => setPrimary("camera")}>
-    <img src='/profile.svg' alt='' />
-    <p>Camera</p>
+  <${StartBtn} onClick=${() => setPrimary("camera")} imgUrl='/profile.svg'>
+    Camera
   </${StartBtn}>
-  <${StartBtn} onClick=${() => setPrimary("screen+cam")}>
-    <img src='/webpage.svg' alt='' width="65" class="d-block m-auto" />
-    <p>Screen + Cam</p>
+  <${StartBtn} onClick=${() => setPrimary("screen+cam")} imgUrl='/webpage.svg'>
+    Screen + Cam
   </${StartBtn}>
   `;
 }

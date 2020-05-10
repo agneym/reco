@@ -1,12 +1,13 @@
 import { html } from "htm/preact";
 
-function StartBtn({ onClick, children }) {
+function StartBtn({ imgUrl, onClick, children }) {
   return html`
     <button
-      class="m-5 px-8 py-4 shadow-lg hover:shadow-xl focus:shadow-outline"
+      class="mt-5 mx-8 px-12 py-6 shadow-lg hover:shadow-xl focus:shadow-outline"
       onClick=${onClick}
     >
-      ${children}
+      <img src=${imgUrl} alt="" class="w-16 d-block mx-auto" />
+      <p class="mt-4">${children}</p>
     </button>
   `;
 }
