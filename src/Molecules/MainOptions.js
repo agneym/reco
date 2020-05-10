@@ -18,7 +18,7 @@ function MainOptions({ setPrimary }) {
     <p>Camera</p>
   </${StartBtn}>
   <${StartBtn} onClick=${() => setPrimary("screen+cam")}>
-    <img src='/webpage.svg' alt='' />
+    <img src='/webpage.svg' alt='' width="65" class="d-block m-auto" />
     <p>Screen + Cam</p>
   </${StartBtn}>
   `;
