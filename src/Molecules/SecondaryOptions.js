@@ -12,7 +12,7 @@ const cursorValues = [
   },
   {
     label: "Moving",
-    value: "moving",
+    value: "motion",
   },
   {
     label: "Never",
