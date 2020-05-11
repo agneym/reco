@@ -4,7 +4,7 @@ import enumerateDevices from "enumerate-devices";
 
 import Checkbox from "../Atoms/Checkbox.js";
 import RadioButtonGroup from "../Atoms/RadioButtonGroup.js";
-import StartBtn from "./StartBtn.js";
+import PrimaryBtn from "./PrimaryBtn.js";
 
 const cursorValues = [
   {
@@ -72,7 +72,7 @@ function SecondaryOptions({ primary, onStart, reset }) {
           </div>
         `
       }
-      <${StartBtn} onClick=${handleStart}>Start Recording</${StartBtn}>
+      <${PrimaryBtn} className='mt-12' onClick=${handleStart}>Start Recording</${PrimaryBtn}>
     </div>
   `;
 }
