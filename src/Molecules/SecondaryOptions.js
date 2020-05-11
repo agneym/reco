@@ -1,5 +1,6 @@
 import { html } from "htm/preact";
-import { useState } from "preact/hooks";
+import { useState, useEffect } from "preact/hooks";
+import enumerateDevices from "enumerate-devices";
 
 import Checkbox from "../Atoms/Checkbox.js";
 import RadioButtonGroup from "../Atoms/RadioButtonGroup.js";
@@ -23,6 +24,14 @@ const cursorValues = [
 function SecondaryOptions({ primary, onStart, reset }) {
   const [audio, setAudio] = useState(true);
   const [cursor, setCursor] = useState("always");
+
+  useEffect(() => {
+    const getDevices = async () => {
+      const devices = await enumerateDevices();
+      console.log(devices);
+    };
+    getDevices();
+  });
 
   const handleStart = () => {
     const constraints = {

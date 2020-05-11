@@ -9,6 +9,8 @@
     "preact/hooks",
     "htm/preact",
     "classnames",
-    "video-stream-merger"
+    "video-stream-merger",
+    "framer-motion",
+    "enumerate-devices"
   ]
 }
