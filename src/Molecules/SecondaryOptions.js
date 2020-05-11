@@ -5,6 +5,7 @@ import useDeviceOptions from "../hooks/useDeviceOptions.js";
 import Checkbox from "../Atoms/Checkbox.js";
 import RadioButtonGroup from "../Atoms/RadioButtonGroup.js";
 import PrimaryBtn from "./PrimaryBtn.js";
+import Select from "./Select.js";
 
 const cursorValues = [
   {
@@ -24,7 +25,7 @@ const cursorValues = [
 function SecondaryOptions({ primary, onStart, reset }) {
   const [audio, setAudio] = useState(true);
   const [cursor, setCursor] = useState("always");
-  useDeviceOptions();
+  const deviceOptions = useDeviceOptions();
 
   const handleStart = () => {
     const constraints = {
@@ -35,6 +36,8 @@ function SecondaryOptions({ primary, onStart, reset }) {
     };
     onStart(constraints);
   };
+
+  const handleSelectAudioDevice = () => {};
 
   return html`
     <h1 class="text-xl text-gray-700 tracking-wide text-center font-normal my-4">
@@ -65,10 +68,15 @@ function SecondaryOptions({ primary, onStart, reset }) {
           </div>
         `
       }
-      <div class="mt-4">
-        <select class="select w-full block">
-          <option>One</option>
-        </select>
+      <div class="mt-6 text-left">
+        <${Select} options=${
+    deviceOptions.audio
+  } labelText="Audio Devices" id="audio" onChange=${handleSelectAudioDevice} />
+      </div>
+      <div class="mt-4 text-left">
+        <${Select} options=${
+    deviceOptions.video
+  } labelText="Video Devices" id="audio" onChange=${handleSelectAudioDevice} />
       </div>
       <${PrimaryBtn} className='mt-12' onClick=${handleStart}>Start Recording</${PrimaryBtn}>
     </div>
