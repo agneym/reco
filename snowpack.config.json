@@ -12,5 +12,11 @@
     "video-stream-merger",
     "framer-motion",
     "enumerate-devices"
-  ]
+  ],
+  "installOptions": {
+    "alias": {
+      "react": "preact/compat", 
+      "react-dom": "preact/compat"
+    }
+  }
 }

@@ -73,7 +73,7 @@ function SecondaryOptions({ primary, onStart, reset }) {
         `
       }
       <div class="mt-4">
-        <select class="select w-100 block">
+        <select class="select w-full block">
           <option>One</option>
         </select>
       </div>
