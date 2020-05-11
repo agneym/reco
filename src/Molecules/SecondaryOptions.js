@@ -72,6 +72,11 @@ function SecondaryOptions({ primary, onStart, reset }) {
           </div>
         `
       }
+      <div class="mt-4">
+        <select class="select w-100 block">
+          <option>One</option>
+        </select>
+      </div>
       <${PrimaryBtn} className='mt-12' onClick=${handleStart}>Start Recording</${PrimaryBtn}>
     </div>
   `;
