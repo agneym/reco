@@ -21,23 +21,31 @@ const cursorValues = [
     value: "never",
   },
 ];
+const requiresVideoDevice = ["screen+cam", "camera"];
 
 function SecondaryOptions({ primary, onStart, reset }) {
   const [audio, setAudio] = useState(true);
   const [cursor, setCursor] = useState("always");
-  const deviceOptions = useDeviceOptions();
+  const {
+    devices: deviceOptions,
+    selectedAudioDevice,
+    selectedVideoDevice,
+    setSelectedDevice,
+  } = useDeviceOptions();
+  const requireVideoDevice = requiresVideoDevice.includes(primary);
 
   const handleStart = () => {
     const constraints = {
-      audio,
+      audio: audio && {
+        deviceId: selectedAudioDevice,
+      },
       video: {
         cursor,
+        ...(requireVideoDevice && { deviceId: selectedVideoDevice }),
       },
     };
     onStart(constraints);
   };
-
-  const handleSelectAudioDevice = () => {};
 
   return html`
     <h1 class="text-xl text-gray-700 tracking-wide text-center font-normal my-4">
@@ -71,13 +79,22 @@ function SecondaryOptions({ primary, onStart, reset }) {
       <div class="mt-6 text-left">
         <${Select} options=${
     deviceOptions.audio
-  } labelText="Audio Devices" id="audio" onChange=${handleSelectAudioDevice} />
+  } labelText="Audio Devices" id="audio" onChange=${(event) =>
+    setSelectedDevice("audio", event)} />
       </div>
-      <div class="mt-4 text-left">
-        <${Select} options=${
-    deviceOptions.video
-  } labelText="Video Devices" id="audio" onChange=${handleSelectAudioDevice} />
-      </div>
+      ${
+        requireVideoDevice &&
+        html`
+          <div class="mt-4 text-left">
+            <${Select}
+              options=${deviceOptions.video}
+              labelText="Video Devices"
+              id="video"
+              onChange=${(event) => setSelectedDevice("video", event)}
+            />
+          </div>
+        `
+      }
       <${PrimaryBtn} className='mt-12' onClick=${handleStart}>Start Recording</${PrimaryBtn}>
     </div>
   `;
