@@ -48,10 +48,10 @@ function SecondaryOptions({ primary, onStart, reset }) {
   };
 
   return html`
-    <h1 class="text-xl text-gray-700 tracking-wide text-center font-normal my-4">
+    <h1 class="text-md text-gray-700 tracking-wide text-center font-normal my-4">
       You have choosen to record ${primary.toUpperCase()}
     </h1>
-    <button class="block mx-auto underline" onClick=${reset}>Choose Another</button>
+    <button class="block text-gray-700 mx-auto underline" onClick=${reset}>Choose Another</button>
     <div class="text-center">
       <div class="mt-8">
         <${Checkbox}
@@ -76,11 +76,16 @@ function SecondaryOptions({ primary, onStart, reset }) {
           </div>
         `
       }
-      <div class="mt-6 text-left">
-        <${Select} options=${
-    deviceOptions.audio
-  } labelText="Audio Devices" id="audio" onChange=${(event) =>
-    setSelectedDevice("audio", event)} />
+      <div
+        class="mt-6 text-left origin-top"
+      >
+        <${Select}
+          options=${deviceOptions.audio}
+          labelText="Audio Devices"
+          id="audio"
+          disabled=${!audio}
+          onChange=${(event) => setSelectedDevice("audio", event)}
+        />
       </div>
       ${
         requireVideoDevice &&

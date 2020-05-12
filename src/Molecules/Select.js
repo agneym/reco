@@ -1,18 +1,30 @@
 import { html } from "htm/preact";
+import { motion } from "framer-motion";
+import classnames from "classnames";
 
-function Select({ labelText, id, options, onChange }) {
+function Select({ labelText, disabled, id, options, onChange }) {
   return html`
-    <label htmlFor=${id}>${labelText}</label>
-    <select
+    <${motion.label}
+      animate
+      htmlFor=${id}
+      class=${classnames({
+        "text-gray-600": disabled,
+      })}  
+    >${labelText}</label>
+    <${motion.select}
       id=${id}
+      disabled=${disabled}
       name=${name}
-      class="select w-full block mt-1"
+      animate
+      class=${classnames("select w-full block mt-1", {
+        "opacity-50 bg-gray-400": disabled,
+      })}
       onChange=${onChange}
     >
       ${options.map(
         ({ label, value }) => html` <option value=${value}>${label}</option> `
       )}
-    </select>
+    </${motion.select}>
   `;
 }
 
