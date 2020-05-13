@@ -12,7 +12,8 @@
     "video-stream-merger",
     "framer-motion",
     "enumerate-devices",
-    "rc-slider"
+    "rc-slider",
+    "get-blob-duration"
   ],
   "installOptions": {
     "alias": {

@@ -1,6 +1,7 @@
 import { html } from "htm/preact";
 import { useRef, useState, useLayoutEffect, useEffect } from "preact/hooks";
 import Slider from "rc-slider";
+import getBlobDuration from "get-blob-duration";
 
 import usePrevious from "../hooks/usePrevious.js";
 
@@ -40,16 +41,11 @@ function PreviewVideo({ url }) {
   const previousValue = usePrevious(trimValues);
 
   useLayoutEffect(() => {
-    const videoEl = videoElRef.current;
-    const getDuration = () => {
-      setDuration(videoEl.duration);
+    const getDuration = async () => {
+      const duration = await getBlobDuration(url);
+      setDuration(duration);
     };
-    if (videoEl) {
-      videoEl.addEventListener("loadedmetadata", getDuration);
-    }
-    return () => {
-      videoEl.removeEventListener("loadedmetadata", getDuration);
-    };
+    getDuration();
   }, []);
 
   useEffect(() => {
@@ -68,7 +64,15 @@ function PreviewVideo({ url }) {
   };
 
   return html`
-    <video class="max-w-xl" controls playsinline src=${url} ref=${videoElRef} />
+    <video
+      class="max-w-xl"
+      controls
+      autoplay
+      preload="metadata"
+      playsinline
+      src=${url}
+      ref=${videoElRef}
+    />
     <div class="mt-6">
       <h2 class="text-base font-medium block mb-1">Trim Video :</h2>
       <${Range}

@@ -9,6 +9,7 @@
     "enumerate-devices": "^1.1.1",
     "ffmpeg.js": "^4.2.9003",
     "framer-motion": "^2.0.0-beta.66",
+    "get-blob-duration": "^1.1.0",
     "htm": "^3.0.4",
     "preact": "^10.4.1",
     "preact-compat": "^3.19.0",
