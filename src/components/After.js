@@ -2,6 +2,7 @@ import { html } from "htm/preact";
 
 import DownloadBtn from "../Molecules/DownloadBtn.js";
 import useConverter from "../hooks/useConverter.js";
+import PrimaryBtn from "../Molecules/PrimaryBtn.js";
 
 /**
  * @component Component to be rendered after recording.
@@ -15,8 +16,8 @@ function After({ recording, restart }) {
       <${DownloadBtn} href=${mp4Url}>
         Export video
       </${DownloadBtn}>
-      <div class="">
-        <button class="bg-pink-600 m-8 px-8 py-4 text-white hover:bg-pink-700" onClick=${restart}>Restart Recording</button>
+      <div class="mt-8">
+        <${PrimaryBtn} onClick=${restart}>Restart Recording</${PrimaryBtn}>
       </div>
     </div>
   `;
