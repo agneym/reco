@@ -11,7 +11,8 @@
     "classnames",
     "video-stream-merger",
     "framer-motion",
-    "enumerate-devices"
+    "enumerate-devices",
+    "rc-slider"
   ],
   "installOptions": {
     "alias": {

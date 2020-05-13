@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from "preact/hooks";
+import { useMemo, useState, useCallback } from "preact/hooks";
 
 const convertWorker = new Worker("ffmpeg-worker-mp4.js");
 
@@ -8,6 +8,10 @@ const convertWorker = new Worker("ffmpeg-worker-mp4.js");
  */
 function useConverter(recording) {
   const [mp4Blob, setMp4Blob] = useState(null);
+
+  const webmUrl = useMemo(() => {
+    return window.URL.createObjectURL(recording);
+  }, [recording]);
 
   const onFileReady = (message) => {
     const out = message.data.MEMFS[0];
@@ -19,7 +23,7 @@ function useConverter(recording) {
     }
   };
 
-  useEffect(() => {
+  const convert = useCallback(() => {
     const handleMessage = (e) => {
       const message = e.data;
       switch (message.type) {
@@ -35,7 +39,7 @@ function useConverter(recording) {
       convertWorker.postMessage({
         type: "run",
         MEMFS: [{ name: "test.webm", data: buffer }],
-        arguments: "-ss 00:00:01 -y -i test.webm -c:v copy screen-recording.mp4".split(
+        arguments: "-ss 00:00:01 -y -i test.webm -c:v copy -to 00:00:05 screen-recording.mp4".split(
           " "
         ),
       });
@@ -56,34 +60,10 @@ function useConverter(recording) {
     return null;
   }, [mp4Blob]);
 
-  const trimVideo = () => {
-    const handleMessage = (e) => {
-      const message = e.data;
-      switch (message.type) {
-        case "done": {
-          onFileReady(message);
-          convertWorker.removeEventListener("message", handleMessage);
-          break;
-        }
-      }
-    };
-    const trim = async () => {
-      const buffer = await recording.arrayBuffer();
-      convertWorker.postMessage({
-        type: "run",
-        MEMFS: [{ name: "test.mp4", data: buffer }],
-        arguments: "-ss 00:00:04 -i test.mp4 -c:v copy -to 00:00:10 screen-reco.mp4".split(
-          " "
-        ),
-      });
-    };
-    trim();
-    convertWorker.addEventListener("message", handleMessage);
-  };
-
   return {
     mp4Url,
-    trimVideo,
+    webmUrl,
+    convert,
   };
 }
 

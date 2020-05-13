@@ -1,4 +1,5 @@
 import { html } from "htm/preact";
+import { Range } from "rc-slider";
 
 import DownloadBtn from "../Molecules/DownloadBtn.js";
 import useConverter from "../hooks/useConverter.js";
@@ -12,7 +13,8 @@ function After({ recording, restart }) {
 
   return html`
     <div class="text-center">
-      <video class="max-w-xl m-6" controls autoplay src=${mp4Url} />
+      <video class="w-xl mb-6" controls autoplay src=${mp4Url} />
+      <${Range} />
       <${DownloadBtn} href=${mp4Url}>
         Export video
       </${DownloadBtn}>
