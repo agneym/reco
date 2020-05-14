@@ -4,8 +4,12 @@
     <h1>R E C O</h1>
     <p>In Browser Recording Studio</p>
   </header>
-  <img src="assets/ss.png" alt="Screenshot of Reco">
 </div>
+
+
+**Screenshots:**
+
+![Screenshot of Reco](assets/ss.png)
 
 
 ## Contributing
