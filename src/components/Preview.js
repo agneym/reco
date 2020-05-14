@@ -5,7 +5,7 @@ import PrimaryBtn from "../Molecules/PrimaryBtn.js";
 function Preview({ stream, onStop }) {
   return html`
     <div class="text-center">
-      <h1 class="text-xl font-medium m-5">
+      <h1 class="text-md text-gray-700 text-center font-normal m-6">
         Recording in Progress ...
       </h1>
       ${

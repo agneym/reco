@@ -23,35 +23,38 @@ function useConverter(recording) {
     }
   };
 
-  const convert = useCallback(() => {
-    const handleMessage = (e) => {
-      const message = e.data;
-      switch (message.type) {
-        case "done": {
-          onFileReady(message);
-          convertWorker.removeEventListener("message", handleMessage);
-          break;
+  const convert = useCallback(
+    ([start, end]) => {
+      const handleMessage = (e) => {
+        const message = e.data;
+        switch (message.type) {
+          case "done": {
+            onFileReady(message);
+            convertWorker.removeEventListener("message", handleMessage);
+            break;
+          }
         }
-      }
-    };
-    const convert = async () => {
-      const buffer = await recording.arrayBuffer();
-      convertWorker.postMessage({
-        type: "run",
-        MEMFS: [{ name: "test.webm", data: buffer }],
-        arguments: "-ss 00:00:01 -y -i test.webm -c:v copy -to 00:00:05 screen-recording.mp4".split(
-          " "
-        ),
-      });
-    };
+      };
+      const convert = async () => {
+        const buffer = await recording.arrayBuffer();
+        convertWorker.postMessage({
+          type: "run",
+          MEMFS: [{ name: "test.webm", data: buffer }],
+          arguments: `-ss ${start} -y -i test.webm -c:v copy -to ${end} screen-recording.mp4`.split(
+            " "
+          ),
+        });
+      };
 
-    convert();
-    convertWorker.addEventListener("message", handleMessage);
+      convert();
+      convertWorker.addEventListener("message", handleMessage);
 
-    return () => {
-      convertWorker.removeEventListener("message", handleMessage);
-    };
-  }, [recording]);
+      return () => {
+        convertWorker.removeEventListener("message", handleMessage);
+      };
+    },
+    [recording]
+  );
 
   const mp4Url = useMemo(() => {
     if (mp4Blob) {

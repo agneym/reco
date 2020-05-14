@@ -33,10 +33,9 @@ function getChanged(newValue, previous) {
   return newValue[1] || 0;
 }
 
-function PreviewVideo({ url }) {
+function PreviewVideo({ url, trimValues, setTrimValues }) {
   const videoElRef = useRef(null);
   const [duration, setDuration] = useState(0);
-  const [trimValues, setTrimValues] = useState([]);
 
   const previousValue = usePrevious(trimValues);
 
