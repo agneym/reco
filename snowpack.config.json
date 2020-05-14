@@ -13,7 +13,8 @@
     "framer-motion",
     "enumerate-devices",
     "rc-slider",
-    "get-blob-duration"
+    "get-blob-duration",
+    "file-saver"
   ],
   "installOptions": {
     "alias": {

@@ -3,20 +3,11 @@ import { useRef, useState, useLayoutEffect, useEffect } from "preact/hooks";
 import Slider from "rc-slider";
 import getBlobDuration from "get-blob-duration";
 
+import pad from "../utils/pad.js";
 import usePrevious from "../hooks/usePrevious.js";
 
 const createSliderWithTooltip = Slider.createSliderWithTooltip;
 const Range = createSliderWithTooltip(Slider.Range);
-
-const pad = (strings, ...values) => {
-  return strings.reduce((acc, str, index) => {
-    const value =
-      values[index] === undefined
-        ? ""
-        : values[index].toString().padStart(2, "0");
-    return acc + str + value;
-  }, "");
-};
 
 const formatTime = (s) => {
   let m = Math.floor(s / 60);

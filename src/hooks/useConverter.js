@@ -1,14 +1,25 @@
-import { useMemo, useState, useCallback } from "preact/hooks";
+import { useMemo, useCallback } from "preact/hooks";
+import FileSaver from "file-saver";
+
+import pad from "../utils/pad.js";
 
 const convertWorker = new Worker("ffmpeg-worker-mp4.js");
+
+function getDateTime(date = new Date()) {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+  return pad`${year}-${month}-${day} at ${hours}:${minutes}:${seconds}`;
+}
 
 /**
  * Convert recording into different formats.
  * @param {Blob} recording Recording to be converted
  */
 function useConverter(recording) {
-  const [mp4Blob, setMp4Blob] = useState(null);
-
   const webmUrl = useMemo(() => {
     return window.URL.createObjectURL(recording);
   }, [recording]);
@@ -19,7 +30,7 @@ function useConverter(recording) {
       const blob = new Blob([out.data], {
         type: "video/mp4",
       });
-      setMp4Blob(blob);
+      FileSaver.saveAs(blob, `Reco - ${getDateTime()}.mp4`);
     }
   };
 
@@ -56,15 +67,7 @@ function useConverter(recording) {
     [recording]
   );
 
-  const mp4Url = useMemo(() => {
-    if (mp4Blob) {
-      return window.URL.createObjectURL(mp4Blob);
-    }
-    return null;
-  }, [mp4Blob]);
-
   return {
-    mp4Url,
     webmUrl,
     convert,
   };
