@@ -2,6 +2,7 @@ import { render } from "preact";
 import { html } from "htm/preact";
 import { useState } from "preact/hooks";
 
+import "./styles.css";
 import Intro from "./components/Intro.js";
 import After from "./components/After.js";
 

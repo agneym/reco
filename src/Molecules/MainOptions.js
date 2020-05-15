@@ -1,5 +1,8 @@
 import { html } from "htm/preact";
 
+import podcast from "../icons/podcast.svg";
+import profile from "../icons/profile.svg";
+import webpage from "../icons/webpage.svg";
 import StartBtn from "./StartBtn.js";
 
 function MainOptions({ setPrimary }) {
@@ -9,14 +12,13 @@ function MainOptions({ setPrimary }) {
     >
       Choose an option to start recording
     </h1>
-    <${StartBtn} onClick=${() => setPrimary("screen")} imgUrl='/podcast.svg'>
+    <${StartBtn} onClick=${() => setPrimary("screen")} imgUrl=${podcast}>
       Screen
     </${StartBtn}>
-    <${StartBtn} onClick=${() => setPrimary("camera")} imgUrl='/profile.svg'>
+    <${StartBtn} onClick=${() => setPrimary("camera")} imgUrl=${profile}>
       Camera
     </${StartBtn}>
-    <${StartBtn} onClick=${() =>
-    setPrimary("screen+cam")} imgUrl='/webpage.svg'>
+    <${StartBtn} onClick=${() => setPrimary("screen+cam")} imgUrl=${webpage}>
       Screen + Cam
     </${StartBtn}>
   `;

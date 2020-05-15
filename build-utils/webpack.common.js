@@ -25,7 +25,7 @@ const config = {
             loader: "file-loader",
           }
         ]
-      }
+      },
     ]
   },
   plugins: [
