@@ -22,7 +22,6 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
-    "@snowpack/babel-plugin-package-import": "^0.2.4",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/preact": "^1.0.2",
     "autoprefixer": "^9.7.6",

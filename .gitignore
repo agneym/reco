@@ -115,11 +115,7 @@ dist/
 tmp/
 temp/
 
-# Snowpack
-__dist__
-.build
-build
-web_modules
+dist
 
 ### macOS ###
 # General
