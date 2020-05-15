@@ -14,7 +14,7 @@
 
 ## Contributing
 
-Reco uses `npm` for managing dependencies. [Snowpack](https://www.snowpack.dev/) is used for development and bundling.
+Reco uses `npm` for managing dependencies.
 
 Major Dependencies include:
 
