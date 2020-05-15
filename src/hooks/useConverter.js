@@ -3,7 +3,7 @@ import FileSaver from "file-saver";
 
 import pad from "../utils/pad.js";
 
-const convertWorker = new Worker("ffmpeg-worker-mp4.js");
+const convertWorker = new Worker("!!file-loader!ffmpeg/ffmpeg-worker-mp4.js");
 
 function getDateTime(date = new Date()) {
   const year = date.getFullYear();
