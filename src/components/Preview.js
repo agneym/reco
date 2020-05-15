@@ -1,6 +1,6 @@
 import { html } from "htm/preact";
 
-import PrimaryBtn from "../Molecules/PrimaryBtn.js";
+import PrimaryBtn from "../Atoms/PrimaryBtn.js";
 
 function Preview({ stream, onStop }) {
   return html`

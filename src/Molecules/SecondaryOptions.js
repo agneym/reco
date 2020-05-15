@@ -4,7 +4,7 @@ import { useState } from "preact/hooks";
 import useDeviceOptions from "../hooks/useDeviceOptions.js";
 import Checkbox from "../Atoms/Checkbox.js";
 import RadioButtonGroup from "../Atoms/RadioButtonGroup.js";
-import PrimaryBtn from "./PrimaryBtn.js";
+import PrimaryBtn from "../Atoms/PrimaryBtn.js";
 import Select from "./Select.js";
 
 const cursorValues = [
