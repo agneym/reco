@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 function Name() {
   return html`
     <svg
-      width="180"
+      width="200"
       class="d-block m-auto"
       viewBox="0 0 317 182"
       fill="none"
@@ -20,9 +20,9 @@ function Name() {
             d="M28.781 45.9201L91.3246 83.2855L28.781 120.651L28.781 45.9201Z"
             fill="#F54F4F"
             stroke="black"
-            stroke-width="8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <line
             x1="29.2299"
