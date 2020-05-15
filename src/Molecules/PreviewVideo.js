@@ -2,6 +2,7 @@ import { html } from "htm/preact";
 import { useRef, useState, useLayoutEffect, useEffect } from "preact/hooks";
 import Slider from "rc-slider";
 import getBlobDuration from "get-blob-duration";
+import "rc-slider/assets/index.css";
 
 import pad from "../utils/pad.js";
 import usePrevious from "../hooks/usePrevious.js";
