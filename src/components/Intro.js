@@ -5,6 +5,7 @@ import useRecorder from "../hooks/useRecorder.js";
 import Preview from "./Preview.js";
 import MainOptions from "../Molecules/MainOptions.js";
 import SecondaryOptions from "../Molecules/SecondaryOptions.js";
+import Name from "../Atoms/Name.js";
 
 /**
  * @component HomePage. All functionalities start here.
@@ -29,7 +30,7 @@ function Intro({ onFinish }) {
   return html`
     <div>
       <header class="mb-24">
-        <img src="/name.svg" alt="logo" width="280" class="d-block m-auto" />
+        <${Name} />
       </header>
       ${isRecording
         ? html` <${Preview} stream=${stream} onStop=${stop} /> `
