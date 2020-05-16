@@ -35,6 +35,7 @@ function useDeviceOptions() {
         setDevices(options);
       } catch (err) {
         setError(err);
+        console.log(err);
       }
     };
     getDevices();

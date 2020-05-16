@@ -37,13 +37,13 @@ function PreviewVideo({ url, trimValues, setTrimValues }) {
       setDuration(duration);
     };
     getDuration();
-  }, []);
+  }, [url]);
 
   useEffect(() => {
     if (duration) {
       setTrimValues([2, duration]);
     }
-  }, [duration]);
+  }, [duration, setTrimValues]);
 
   const handleSliderChange = (values) => {
     setTrimValues(values);

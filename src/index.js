@@ -1,6 +1,6 @@
 import { render } from "preact";
 import { html } from "htm/preact";
-import { useState } from "preact/hooks";
+import { useState, useCallback } from "preact/hooks";
 
 import "./styles.css";
 import Intro from "./components/Intro.js";
@@ -11,9 +11,9 @@ function App() {
   const restart = () => {
     setRecording(null);
   };
-  const completeRecording = (blob) => {
+  const completeRecording = useCallback((blob) => {
     setRecording(blob);
-  };
+  }, []);
   return html`
     <main class="grid justify-center items-center min-h-screen">
       ${!recording

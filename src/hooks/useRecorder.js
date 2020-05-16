@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "preact/hooks";
+import { useState, useRef, useEffect, useCallback } from "preact/hooks";
 import VideoStreamMerger from "video-stream-merger";
 
 /**
@@ -100,7 +100,7 @@ function useRecorder({ onFinish }) {
   const cameraStream = useRef(null);
   const screenStream = useRef(null);
 
-  const stopCapture = async () => {
+  const stopCapture = useCallback(async () => {
     [cameraStream.current, screenStream.current, stream]
       .filter(Boolean)
       .map((stream) => {
@@ -112,7 +112,7 @@ function useRecorder({ onFinish }) {
     const recording = await mediaRecorder.current.stop();
     onFinish(recording);
     setIsRecording(false);
-  };
+  }, [stream, onFinish]);
 
   useEffect(() => {
     if (stream) {
@@ -130,7 +130,7 @@ function useRecorder({ onFinish }) {
         stream.removeEventListener("ended", stopCapture);
       }
     };
-  }, [stream]);
+  }, [stream, stopCapture]);
 
   /**
    * Start recording function
@@ -149,9 +149,8 @@ function useRecorder({ onFinish }) {
             screenStream.current,
             constraints
           );
-        } else {
-          return cameraStream.current || screenStream.current;
         }
+        return cameraStream.current || screenStream.current;
       })();
 
       setStream(stream);
