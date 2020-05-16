@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
+    "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
     "enumerate-devices": "^1.1.1",
     "ffmpeg.js": "^4.2.9003",
@@ -26,6 +27,10 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
+    "@babel/plugin-proposal-numeric-separator": "^7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "^7.9.0",
+    "@babel/plugin-transform-react-display-name": "^7.8.3",
     "@babel/preset-env": "^7.9.6",
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/preact": "^1.0.2",
@@ -33,11 +38,13 @@
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.0",
     "css-loader": "^3.5.3",
     "cssnano": "^4.1.10",
     "eslint": "^6.8.0",
+    "eslint-config-preact": "^1.1.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-loader": "^4.0.2",
     "file-loader": "^6.0.0",
@@ -76,5 +83,8 @@
       "eslint --cache --fix",
       "prettier --write"
     ]
-  }
+  },
+  "browserslist": [
+    "> 0.5%, not dead"
+  ]
 }
