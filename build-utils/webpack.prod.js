@@ -1,9 +1,11 @@
 const webpack = require("webpack");
+const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
-var ManifestPlugin = require('webpack-manifest-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const WorkboxPlugin = require("workbox-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 const commonPaths = require("./commonPaths");
 
@@ -48,12 +50,24 @@ module.exports = {
       patterns: [
         {
           from: commonPaths.public,
-          to: commonPaths.outputPath,
+          to: commonPaths.outPublic,
           globOptions: {
             ignore: ["index.html"]
           }
         }
       ]
-    })
+    }),
+    new WebpackPwaManifest({
+      name: 'Reco - Recording Studio',
+      short_name: 'reco',
+      description: 'In-Browser Recording Studio',
+      background_color: '#ffffff',
+      icons: [
+        {
+          src: path.resolve('public/icon.png'),
+          sizes: [96, 128, 192, 256, 384, 512, 1024]
+        },
+      ]
+    }),
   ]
 };
