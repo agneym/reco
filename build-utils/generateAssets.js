@@ -10,6 +10,7 @@ const pwaAssetGenerator = require('pwa-asset-generator');
       iconOnly: true,
       favicon: true,
       opaque: false,
+      path: '/public',
       index: path.resolve(__dirname, '../public/index.html'),
       manifest: path.resolve(__dirname, '../public/manifest.json'),
     });
