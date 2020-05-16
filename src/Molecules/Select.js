@@ -7,7 +7,7 @@ function Select({ labelText, disabled, id, options, onChange }) {
     <${motion.label}
       animate
       htmlFor=${id}
-      class=${classnames({
+      class=${classnames("block", {
         "text-gray-600": disabled,
       })}  
     >${labelText}</label>
