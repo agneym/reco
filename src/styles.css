@@ -3,7 +3,7 @@
 @tailwind components;
 
 body {
-  background-image: url('/src/icons/dots.png');
+  background-image: url('./icons/dots.png');
 }
 
 .select {
