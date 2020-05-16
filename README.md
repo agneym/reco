@@ -1,10 +1,12 @@
 <div align="center">
   <header>
-    <img src="public/android-chrome-192x192.png" height="80" alt="Screenshot of Reco">
+    <img src="public/apple-touch-icon.png" height="80" alt="Screenshot of Reco">
     <h1>R E C O</h1>
     <p>In Browser Recording Studio</p>
   </header>
 </div>
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/60fc6191-da87-4d72-a2d9-08b481b2cce9/deploy-status)](https://app.netlify.com/sites/hopeful-shannon-58e0d1/deploys)
 
 
 **Screenshots:**
