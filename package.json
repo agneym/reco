@@ -1,7 +1,7 @@
 {
   "name": "reco",
   "version": "1.0.0",
-  "description": "",
+  "description": "In Browser Recording Studio",
   "main": "src/index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack-cli --mode=production --env=prod",
@@ -71,7 +71,7 @@
     "workbox-webpack-plugin": "^5.1.3",
     "worker-loader": "^2.0.0"
   },
-  "keywords": [],
+  "keywords": ["recording", "webrtc"],
   "author": "Agney Menon <agney@outlook.in>",
   "license": "ISC",
   "husky": {
