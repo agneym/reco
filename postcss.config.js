@@ -1,3 +1,6 @@
-module.exports = {
-  plugins: [require("tailwindcss")],
-};
+module.exports = ({ env }) => ({
+  plugins: {
+    'tailwindcss': true,
+    'cssnano': env === 'production',
+  },
+});

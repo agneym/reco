@@ -4,10 +4,8 @@ const config = {
   devServer: {
     port: 3000,
     open: true,
-    host: "0.0.0.0",
     overlay: true,
     hot: true,
-    useLocalIp: true,
     historyApiFallback: true
   },
   devtool: "inline-source-map",
