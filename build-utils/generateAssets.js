@@ -6,9 +6,10 @@ const pwaAssetGenerator = require('pwa-asset-generator');
     path.resolve(__dirname, '../public/icon.png'),
     path.resolve(__dirname, '../public'),
     {
-      background: "linear-gradient(to right, #fa709a 0%, #fee140 100%)",
+      type: 'png',
       iconOnly: true,
       favicon: true,
+      opaque: false,
       index: path.resolve(__dirname, '../public/index.html'),
       manifest: path.resolve(__dirname, '../public/manifest.json'),
     });
