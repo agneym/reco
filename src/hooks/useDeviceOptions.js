@@ -16,6 +16,11 @@ function useDeviceOptions() {
     setError(null);
     const getDevices = async () => {
       try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+          video: true,
+        });
+        stream.getTracks().forEach((track) => track.stop());
         const devices = await enumerateDevices();
         const options = devices.reduce(
           (acc, device) => {
@@ -39,6 +44,11 @@ function useDeviceOptions() {
       }
     };
     getDevices();
+    document.addEventListener("devicechange", getDevices);
+
+    return () => {
+      document.removeEventListener("devicechange", getDevices);
+    };
   }, []);
 
   const setSelectedDevice = (type, event) => {
