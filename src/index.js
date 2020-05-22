@@ -1,6 +1,7 @@
 import { render } from "preact";
 import { html } from "htm/preact";
 import { useState, useCallback } from "preact/hooks";
+import { ToastProvider } from "react-toast-notifications";
 
 import "./styles.css";
 import Intro from "./components/Intro.js";
@@ -15,11 +16,17 @@ function App() {
     setRecording(blob);
   }, []);
   return html`
+  <${ToastProvider}
+    autoDismiss
+  >
     <main class="grid justify-center items-center min-h-screen">
-      ${!recording
-        ? html`<${Intro} onFinish=${completeRecording} />`
-        : html`<${After} restart=${restart} recording=${recording} />`}
+      ${
+        !recording
+          ? html`<${Intro} onFinish=${completeRecording} />`
+          : html`<${After} restart=${restart} recording=${recording} />`
+      }
     </main>
+  </${ToastProvider}>
   `;
 }
 

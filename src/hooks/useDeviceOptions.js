@@ -1,5 +1,6 @@
 import { useState, useEffect } from "preact/hooks";
 import enumerateDevices from "enumerate-devices";
+import { useToasts } from "react-toast-notifications";
 
 import useLocalStorage from "./useLocalStorage";
 
@@ -18,6 +19,7 @@ function useDeviceOptions() {
   const [permission, setPermission] = useLocalStorage("reco_permission", {
     status: "wait",
   });
+  const { addToast } = useToasts();
   const [error, setError] = useState(null);
   const [selectedAudioDevice, setSelectedAudioDevice] = useState(null);
   const [selectedVideoDevice, setSelectedVideoDevice] = useState(null);
@@ -29,6 +31,14 @@ function useDeviceOptions() {
         return;
       }
       try {
+        addToast(
+          "We are asking for permissions to read names of devices you have connected.",
+          {
+            appearance: "info",
+            autoDismiss: true,
+          }
+        );
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         const stream = await navigator.mediaDevices.getUserMedia({
           audio: true,
           video: true,
@@ -36,7 +46,7 @@ function useDeviceOptions() {
         stream.getTracks().forEach((track) => track.stop());
         setPermission({ status: "granted" });
       } catch (err) {
-        setPermission({ status: "denied" });
+        setPermission({ status: "wait" });
       }
     };
     const getDevices = async () => {
