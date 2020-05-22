@@ -6,6 +6,11 @@ const initialDevices = {
   video: [],
 };
 
+/**
+ * Custom hook for getting connected devices list.
+ * Enumerate Devices API is not behind an API but requires permission to show device names.
+ * Permissions API for camera and microphone is only supported on Chrome as of now. We are using Local Storage to know if user has granted permission to access camera and microphone before.
+ */
 function useDeviceOptions() {
   const [devices, setDevices] = useState(initialDevices);
   const [error, setError] = useState(null);
