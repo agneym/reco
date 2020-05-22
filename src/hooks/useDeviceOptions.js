@@ -1,6 +1,8 @@
 import { useState, useEffect } from "preact/hooks";
 import enumerateDevices from "enumerate-devices";
 
+import useLocalStorage from "./useLocalStorage";
+
 const initialDevices = {
   audio: [],
   video: [],
@@ -13,20 +15,35 @@ const initialDevices = {
  */
 function useDeviceOptions() {
   const [devices, setDevices] = useState(initialDevices);
+  const [permission, setPermission] = useLocalStorage("reco_permission", {
+    status: "wait",
+  });
   const [error, setError] = useState(null);
   const [selectedAudioDevice, setSelectedAudioDevice] = useState(null);
   const [selectedVideoDevice, setSelectedVideoDevice] = useState(null);
 
   useEffect(() => {
     setError(null);
-    const getDevices = async () => {
+    const getPermission = async () => {
+      if (permission?.status === "granted") {
+        return;
+      }
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           audio: true,
           video: true,
         });
         stream.getTracks().forEach((track) => track.stop());
+        setPermission({ status: "granted" });
+      } catch (err) {
+        setPermission({ status: "denied" });
+      }
+    };
+    const getDevices = async () => {
+      try {
+        await getPermission();
         const devices = await enumerateDevices();
+        console.log(devices);
         const options = devices.reduce(
           (acc, device) => {
             const option = {
@@ -48,6 +65,7 @@ function useDeviceOptions() {
         console.log(err);
       }
     };
+
     getDevices();
     document.addEventListener("devicechange", getDevices);
 
