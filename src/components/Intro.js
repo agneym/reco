@@ -6,12 +6,13 @@ import Preview from "./Preview.js";
 import MainOptions from "../Molecules/MainOptions.js";
 import SecondaryOptions from "../Molecules/SecondaryOptions.js";
 import Name from "../Atoms/Name.js";
+import ErrorMessage from "../Molecules/Error";
 
 /**
  * @component HomePage. All functionalities start here.
  */
 function Intro({ onFinish }) {
-  const { start, isRecording, stream, stop } = useRecorder({ onFinish });
+  const { start, isRecording, stream, stop, error } = useRecorder({ onFinish });
   const [primary, setPrimary] = useState(null);
 
   const handleStart = (constraints) => {
@@ -32,8 +33,10 @@ function Intro({ onFinish }) {
       <header class="mb-24">
         <${Name} />
       </header>
-      ${isRecording
-        ? html` <${Preview} stream=${stream} onStop=${stop} /> `
+      ${error
+        ? html`<${ErrorMessage} error=${error} />`
+        : isRecording
+        ? html` <${Preview} error=${error} stream=${stream} onStop=${stop} /> `
         : html`
             <div>
               ${!primary
