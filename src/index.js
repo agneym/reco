@@ -6,6 +6,7 @@ import { ToastProvider } from "react-toast-notifications";
 import "./styles.css";
 import Intro from "./components/Intro.js";
 import After from "./components/After.js";
+import Nav from "./Molecules/Nav";
 
 function App() {
   const [recording, setRecording] = useState(null);
@@ -19,6 +20,7 @@ function App() {
   <${ToastProvider}
     autoDismiss
   >
+    <${Nav} />
     <main class="grid justify-center items-center min-h-screen">
       ${
         !recording
