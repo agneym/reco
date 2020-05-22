@@ -43,11 +43,11 @@ function useDeviceOptions() {
       try {
         await getPermission();
         const devices = await enumerateDevices();
-        console.log(devices);
+
         const options = devices.reduce(
           (acc, device) => {
             const option = {
-              label: device.label,
+              label: device.label ?? "Default Device",
               value: device.deviceId,
             };
             if (device.kind === "audioinput") {
