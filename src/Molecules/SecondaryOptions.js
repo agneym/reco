@@ -48,10 +48,10 @@ function SecondaryOptions({ primary, onStart, reset }) {
   };
 
   return html`
-    <h1 class="text-md text-gray-700 tracking-wide text-center font-normal my-4">
+    <h1 class="text-md text-gray-700 dark:text-gray-400 tracking-wide text-center font-normal my-4">
       You have choosen to record ${primary.toUpperCase()}
     </h1>
-    <button class="block text-gray-700 mx-auto underline" onClick=${reset}>Choose Another</button>
+    <button class="block text-gray-700 dark:text-gray-400 mx-auto underline" onClick=${reset}>Choose Another</button>
     <div class="text-center">
       <div class="mt-8">
         <${Checkbox}
