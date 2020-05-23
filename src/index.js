@@ -19,6 +19,7 @@ function App() {
   }, []);
   const darkMode = useDarkMode(false, {
     element: document.documentElement,
+    classNameDark: "mode-dark",
   });
 
   return html`
