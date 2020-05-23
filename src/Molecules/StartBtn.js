@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 function StartBtn({ img: Image, onClick, children }) {
   return html`
     <${motion.button}
-      class="mt-5 mx-8 px-12 py-6 shadow-lg hover:shadow-xl focus:shadow-outline bg-white dark:bg-gray-800 dark:text-gray-300"
+      class="mt-5 mx-8 px-12 py-6 shadow-lg hover:shadow-xl focus:shadow-outline bg-white dark:bg-gray-900 dark-hover:bg-gray-800 dark:text-gray-300"
       animate
       onClick=${onClick}
     >

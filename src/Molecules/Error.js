@@ -27,11 +27,11 @@ function ErrorMessage(error) {
         <pre class="py-2">${error?.error.toString()}</pre>
       </details>
       <p class="">
-        If you think it's us,
+        <span>If you think it's us, </span>
         <a class="underline" href="https://github.com/agneym/reco/issues"
           >File an issue</a
         >
-        with error message
+        <span> with error message</span>
       </p>
     </div>
   `;

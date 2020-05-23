@@ -12,8 +12,8 @@ module.exports = {
     extend: {},
   },
   variants: {
-    backgroundColor: ['dark', 'dark-hover', 'dark-group-hover', 'dark-even', 'dark-odd'],
-    borderColor: ['dark', 'dark-focus', 'dark-focus-within'],
+    backgroundColor: ['hover', 'dark', 'dark-hover'],
+    borderColor: ['hover', 'dark', 'dark-focus', 'dark-focus-within'],
     textColor: ['dark', 'dark-hover', 'dark-active', 'dark-placeholder']
   },
   plugins: [

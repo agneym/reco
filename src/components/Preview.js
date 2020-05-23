@@ -5,7 +5,7 @@ import PrimaryBtn from "../Atoms/PrimaryBtn.js";
 function Preview({ stream, onStop }) {
   return html`
     <div class="text-center">
-      <h1 class="text-md text-gray-700 text-center font-normal m-6">
+      <h1 class="text-md text-gray-700 dark:text-gray-600 text-center font-normal m-6">
         Recording in Progress ...
       </h1>
       ${
