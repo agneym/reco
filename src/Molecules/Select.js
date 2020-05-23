@@ -16,9 +16,12 @@ function Select({ labelText, disabled, id, options, onChange }) {
       disabled=${disabled}
       name=${name}
       animate
-      class=${classnames("select w-full block mt-1 dark:text-gray-700", {
-        "opacity-50 bg-gray-400": disabled,
-      })}
+      class=${classnames(
+        "select w-full block mt-1 dark:bg-gray-800 dark:text-gray-400",
+        {
+          "opacity-50 bg-gray-400": disabled,
+        }
+      )}
       onChange=${onChange}
     >
       ${options.map(
