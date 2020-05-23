@@ -6,22 +6,26 @@ import twitterIcon from "../icons/twitter.svg";
 import bmcIcon from "../icons/coffee.svg";
 import ModeToggle from "./ModeToggle";
 
-function IconLink({ text, link, icon, width = 18 }) {
+function IconLink({ text, link, icon: Icon, width = 18 }) {
   return html`
     <${
       motion.a
     } class='opacity-75 p-1' title=${text} href=${link} target="_blank" rel="noopener noreferrer" whileHover=${{
     scale: 1.05,
     opacity: 1,
-  }}>
-      <img src=${icon} width=${width} alt='${text}' />
+  }}
+    aria-label='${text}'
+  >
+      <${Icon} width=${width} aria-hidden='true' />
     </${motion.a}>
   `;
 }
 
 function Nav({ darkMode }) {
   return html`
-    <nav class="flex justify-end items-center space-x-3 fixed w-full px-6 pt-3">
+    <nav
+      class="flex justify-end items-center space-x-3 fixed w-full px-6 pt-3 dark:text-gray-400"
+    >
       <${IconLink}
         width=${20}
         icon=${githubIcon}
