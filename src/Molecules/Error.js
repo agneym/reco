@@ -1,6 +1,11 @@
 import { html } from "htm/preact";
 
-function ErrorMessage(error) {
+import SecondaryBtn from "../Atoms/SecondaryBtn";
+
+function ErrorMessage({ error }) {
+  const restart = () => {
+    window.location.reload();
+  };
   return html`
     <div class="text-center max-w-sm" role="alert">
       <h4 class="font-semibold text-md mb-4">
@@ -24,7 +29,7 @@ function ErrorMessage(error) {
       </div>
       <details class="my-4">
         <summary>Error Message</summary>
-        <pre class="py-2">${error?.error.toString()}</pre>
+        <pre class="py-2">${error?.toString()}</pre>
       </details>
       <p class="">
         <span>If you think it's us, </span>
@@ -33,6 +38,7 @@ function ErrorMessage(error) {
         >
         <span> with error message</span>
       </p>
+      <${SecondaryBtn} class='mt-6 mx-auto' onClick=${restart}>Restart</${SecondaryBtn}>
     </div>
   `;
 }
