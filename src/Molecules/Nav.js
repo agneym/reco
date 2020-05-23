@@ -10,7 +10,7 @@ function IconLink({ text, link, icon: Icon, width = 18 }) {
   return html`
     <${
       motion.a
-    } class='opacity-75 p-1' title=${text} href=${link} target="_blank" rel="noopener noreferrer" whileHover=${{
+    } class='opacity-75 p-1 focus:shadow-outline' title=${text} href=${link} target="_blank" rel="noopener noreferrer" whileHover=${{
     scale: 1.05,
     opacity: 1,
   }}

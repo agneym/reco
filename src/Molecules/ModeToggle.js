@@ -1,5 +1,5 @@
 import { html } from "htm/preact";
-import DarkModeToggle from "react-dark-mode-toggle";
+import DarkModeToggle from "@agney/react-dark-mode-toggle";
 
 function ModeToggle({ darkMode }) {
   return html`

@@ -10,6 +10,7 @@
     "serve:prod": "servor dist"
   },
   "dependencies": {
+    "@agney/react-dark-mode-toggle": "0.0.4-4",
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
@@ -22,7 +23,6 @@
     "preact": "^10.4.1",
     "preact-compat": "^3.19.0",
     "rc-slider": "^9.2.4",
-    "react-dark-mode-toggle": "0.0.4",
     "react-toast-notifications": "^2.4.0",
     "tailwindcss": "^1.4.0",
     "use-dark-mode": "^2.3.1",

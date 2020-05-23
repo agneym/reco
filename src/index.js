@@ -3,11 +3,12 @@ import { html } from "htm/preact";
 import { useState, useCallback } from "preact/hooks";
 import { ToastProvider } from "react-toast-notifications";
 import useDarkMode from "use-dark-mode";
+import { Suspense, lazy } from "preact/compat";
 
 import "./styles.css";
 import Intro from "./components/Intro.js";
 import After from "./components/After.js";
-import Nav from "./Molecules/Nav";
+const Nav = lazy(() => import("./Molecules/Nav"));
 
 function App() {
   const [recording, setRecording] = useState(null);
@@ -26,7 +27,9 @@ function App() {
   <${ToastProvider}
     autoDismiss
   >
-    <${Nav} darkMode=${darkMode} />
+    <${Suspense}>
+      <${Nav} darkMode=${darkMode} />
+    </${Suspense}>
     <main class="grid justify-center items-center min-h-screen">
       ${
         !recording
