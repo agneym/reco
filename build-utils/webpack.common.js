@@ -19,12 +19,16 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(jpe?g|png|gif|svg|eot|ttf|woff|woff2)$/i,
+        test: /\.(jpe?g|png|gif|eot|ttf|woff|woff2)$/i,
         use: [
           {
             loader: "file-loader",
           }
         ]
+      },
+      {
+        test: /\.svg$/i,
+        use: '@svgr/webpack'
       },
     ]
   },
