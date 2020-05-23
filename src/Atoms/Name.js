@@ -8,6 +8,8 @@ function Name() {
       class="d-block m-auto"
       viewBox="0 0 317 182"
       fill="none"
+      aria-label="Reco Logo"
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
     >
       <g id="Name">
