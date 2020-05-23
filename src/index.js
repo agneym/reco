@@ -2,6 +2,7 @@ import { render } from "preact";
 import { html } from "htm/preact";
 import { useState, useCallback } from "preact/hooks";
 import { ToastProvider } from "react-toast-notifications";
+import useDarkMode from "use-dark-mode";
 
 import "./styles.css";
 import Intro from "./components/Intro.js";
@@ -16,11 +17,15 @@ function App() {
   const completeRecording = useCallback((blob) => {
     setRecording(blob);
   }, []);
+  const darkMode = useDarkMode(false, {
+    element: document.documentElement,
+  });
+
   return html`
   <${ToastProvider}
     autoDismiss
   >
-    <${Nav} />
+    <${Nav} darkMode=${darkMode} />
     <main class="grid justify-center items-center min-h-screen">
       ${
         !recording

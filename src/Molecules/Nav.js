@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import githubIcon from "../icons/github.svg";
 import twitterIcon from "../icons/twitter.svg";
 import bmcIcon from "../icons/coffee.svg";
+import ModeToggle from "./ModeToggle";
 
 function IconLink({ text, link, icon, width = 18 }) {
   return html`
@@ -18,7 +19,7 @@ function IconLink({ text, link, icon, width = 18 }) {
   `;
 }
 
-function Nav() {
+function Nav({ darkMode }) {
   return html`
     <nav class="flex justify-end items-center space-x-3 fixed w-full px-6 pt-3">
       <${IconLink}
@@ -38,6 +39,7 @@ function Nav() {
         text="Buy me a Coffee"
         link="https://www.buymeacoffee.com/agney"
       />
+      <${ModeToggle} darkMode=${darkMode} />
     </nav>
   `;
 }
