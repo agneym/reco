@@ -15,7 +15,7 @@ const initialDevices = {
  * Permissions API for camera and microphone is only supported on Chrome as of now. We are using Local Storage to know if user has granted permission to access camera and microphone before.
  */
 function useDeviceOptions() {
-  const [devices, setDevices] = useState(initialDevices);
+  const [devices, setDevices] = useState({ ...initialDevices });
   const [permission, setPermission] = useLocalStorage("reco_permission", {
     status: "wait",
   });
@@ -54,21 +54,18 @@ function useDeviceOptions() {
         await getPermission();
         const devices = await enumerateDevices();
 
-        const options = devices.reduce(
-          (acc, device) => {
-            const option = {
-              label: device.label ?? "Default Device",
-              value: device.deviceId,
-            };
-            if (device.kind === "audioinput") {
-              acc.audio.push(option);
-            } else if (device.kind === "videoinput") {
-              acc.video.push(option);
-            }
-            return acc;
-          },
-          { ...initialDevices }
-        );
+        const options = devices.reduce((acc, device) => {
+          const option = {
+            label: device.label ?? "Default Device",
+            value: device.deviceId,
+          };
+          if (device.kind === "audioinput") {
+            acc.audio.push(option);
+          } else if (device.kind === "videoinput") {
+            acc.video.push(option);
+          }
+          return acc;
+        }, JSON.parse(JSON.stringify(initialDevices)));
         setDevices(options);
       } catch (err) {
         setError(err);
